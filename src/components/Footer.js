@@ -19,7 +19,7 @@ class Footer extends React.Component {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={theme ? 'https://rs.school/images/rs_school_js.svg' : '../rs_school_js_light.svg'} alt=""/>
+              <img src={theme ? 'https://rs.school/images/rs_school_js.svg' : './assets/rs_school_js_light.svg'} alt=""/>
             </a>
           </footer>
          );

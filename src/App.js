@@ -4,6 +4,8 @@ import Game from "./components/Game";
 import Login from "./components/Login";
 import Endgame from "./components/Endgame";
 import Footer from './components/Footer';
+import Audio from './components/Audio';
+import { get, set } from './utils';
 import { Icon, InlineIcon } from '@iconify/react';
 import bxMoon from '@iconify/icons-bx/bx-moon';
 import './App.css';
@@ -14,8 +16,8 @@ class App extends React.Component {
     super(props);
     this.state = { 
       ties: 0,
-      username1: 'Player1',
-      username2: 'Player2',
+      username1: get('player1_23096') || 'Player1',
+      username2: get('player2_28096') || 'Player2',
       winner: '',
       player1: 0,
       player2: 0,
@@ -23,6 +25,7 @@ class App extends React.Component {
       showEndgame: false,
       isLight: true,
       size: 3,
+      sound: false,
       font: 'cross',
     };
   }
@@ -81,6 +84,7 @@ class App extends React.Component {
       winner,
       isLight,
       size,
+      sound,
       font
     } = this.state;
     console.log(size)
@@ -111,6 +115,7 @@ class App extends React.Component {
           size={size}
           font={font}
         />
+        <Audio sound={sound} />
         <Footer theme={isLight} />
     </div>
      );

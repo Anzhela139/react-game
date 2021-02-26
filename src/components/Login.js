@@ -5,15 +5,19 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  
-            player1: '',
-            player2: '',
+            player1: get('player1_23096') || '',
+            player2: get('player2_28096') || '',
         }
     }
 
     handleChange = (event) => {
         let player = event.target.id;
         this.setState({[ player ]: event.target.value});
-        set('username1', event.target.value);
+        if (player === 'player1') {
+            set('player1_23096', event.target.value);
+        } else {
+            set('player2_28096', event.target.value);
+        }
     }
 
     handleClick = (event) => {
@@ -25,6 +29,13 @@ class Login extends React.Component {
     handleSubmit = (event) => {
         const { player1, player2 } = this.state;
         this.props.names(player1, player2); 
+        let player = event.target.id;
+        this.setState({[ player ]: event.target.value});
+        if (player = 'player1') {
+            set('player1_23096', event.target.value);
+        } else {
+            set('player2_23096', event.target.value);
+        }
         event.preventDefault();
     }
 

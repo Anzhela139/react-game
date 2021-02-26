@@ -16,7 +16,6 @@ class Navbar extends React.Component {
         this.setState({
             canShow: !this.state.canShow
         })
-        console.log(this.state)
     }
 
     render() { 
