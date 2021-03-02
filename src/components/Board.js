@@ -1,7 +1,4 @@
 import React from 'react';
-import { Icon, InlineIcon } from '@iconify/react';
-import beeFlower from '@iconify/icons-mdi/bee-flower';
-import snailIcon from '@iconify/icons-mdi/snail';
 
 class Board extends React.Component {
     constructor(props) {
@@ -34,26 +31,15 @@ class Board extends React.Component {
         }
     }
 
-    tileInner = (font, tile, bee, snail, player) => {
-        if (player === 'player1') {
-            return bee;
-        } else {
-            return snail;
-        }
-    }
-
     play = (tile) => {
         const { player1, player2, turn, handleScore, endgame, font, size } = this.props;
         tile.classList.remove('not-played');
-        console.log(font);
-        const bee = <Icon icon={beeFlower} style={{color: '#161616', fontSize: '42px'}} />;
-        const snail = <Icon icon={snailIcon} style={{color: '#161616', fontSize: '42px'}} />;
 
         if (player1) {
-            tile.innerHTML = (font === 'cross') ? 'X' : '';
-            tile.insertAdjacentHTML('beforeEnd', bee);
+            tile.innerHTML = (font === 'cross') ? 'X' : '<span class="iconify" data-inline="false" data-icon="mdi:bee-flower" style="font-size: 56px;"></span>';
+            let tileValue = (font === 'cross') ? 'X' : 'bee';
             turn('player1', false, 'player2', true);
-            if (this.diagonal('X', size) || this.dimension('X', 'row', size) || this.dimension('X', 'column', size)) {
+            if (this.diagonal(tileValue, size) || this.dimension(tileValue, 'row', size) || this.dimension(tileValue, 'column', size)) {
                 handleScore('player1');
                 endgame(true);
                 this.reset();
@@ -61,9 +47,10 @@ class Board extends React.Component {
         }
         
         if (player2) {
-            tile.innerHTML = 'O';
+            tile.innerHTML = (font === 'cross') ? 'O' : '<span class="iconify" data-inline="false" data-icon="mdi:snail" style="font-size: 56px;"></span>';
+            let tileValue = (font === 'cross') ? 'O' : 'snail';
             turn('player2', false, 'player1', true);
-            if (this.diagonal('O', size) || this.dimension('O', 'row', size) || this.dimension('O', 'column', size)) {
+            if (this.diagonal(tileValue, size) || this.dimension(tileValue, 'row', size) || this.dimension(tileValue, 'column', size)) {
                 handleScore('player2');
                 endgame(true);
                 this.reset();
@@ -100,6 +87,7 @@ class Board extends React.Component {
         for(let i = 0; i < (size*size) - 1; i++) {
             arr.push(document.querySelector(`#tile${i}`).innerHTML)
         }
+        //eslint-disable-next-line
         dimensionArr = arr.reduce((rows, key, index) => (index % size == 0 ? rows.push([key]) : rows[rows.length-1].push(key)) && rows, []);
         dimensionArr.forEach((el) => {
             el.forEach((item) => {

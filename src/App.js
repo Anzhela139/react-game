@@ -1,13 +1,11 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Game from "./components/Game";
+import Menu from './components/Menu';
 import Login from "./components/Login";
 import Endgame from "./components/Endgame";
 import Footer from './components/Footer';
-import Audio from './components/Audio';
 import { get, set } from './utils';
-import { Icon, InlineIcon } from '@iconify/react';
-import bxMoon from '@iconify/icons-bx/bx-moon';
 import './App.css';
 
 
@@ -15,13 +13,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      ties: 0,
+      ties: get('ties_24056') || 0,
       username1: get('player1_23096') || 'Player1',
       username2: get('player2_28096') || 'Player2',
       winner: '',
       player1: 0,
       player2: 0,
-      showLogin: true,
+      showMenu: true,
+      showLogin: false,
       showEndgame: false,
       isLight: true,
       size: 3,
@@ -35,13 +34,22 @@ class App extends React.Component {
     let winner;
     if (player === 'player1') {
       winner = username1;
+      this.setState({
+        [player]: this.state[player] + 1,
+      })
     } else if (player === 'player2') {
       winner = username2;
+      this.setState({
+        [player]: this.state[player] + 1,
+      })
     } else {
       winner = 'Tied';
+      this.setState({
+        ties: this.state.ties + 1,
+      })
+      set('ties_24056', this.state.ties + 1);
     }
     this.setState({
-      [player]: this.state[player] + 1,
       winner: winner,
     })
   }
@@ -50,7 +58,20 @@ class App extends React.Component {
     this.setState({
       username1: player1,
       username2: player2,
-      showLogin: false,
+    })
+  }
+
+  handleMenu = (event) => {
+    event.preventDefault();
+    this.setState({
+      showMenu: !this.state.showMenu,
+    })
+  }
+
+  handleLogin = (event) => {
+    event.preventDefault();
+    this.setState({
+      showLogin: !this.state.showLogin,
     })
   }
 
@@ -63,12 +84,37 @@ class App extends React.Component {
   }
 
   handleSize = (event) => {
-    this.setState({size: Number(event.target.value)});
+    if (event.target) {
+      this.setState({size: Number(event.target.value)});
+    } else {
+      this.setState({size: event});
+    }
   }
 
   handleTheme = (isLight) => {
     this.setState({
       isLight: !this.state.isLight,
+    })
+  }
+
+  handleKey = () => {
+    document.addEventListener('keydown', (event) => {
+      event.preventDefault();
+  
+      if (event.code === 'KeyM') {
+        this.handleMenu();
+      } else if (event.code === 'Digit3') {
+        this.handleSize(3);
+      } else if (event.code === 'Digit4') {
+        this.handleSize(4);
+      } else if (event.code === 'Digit5') {
+        this.handleSize(5);
+      } else if (event.code === 'Digit6') {
+        this.handleSize(6);
+      } else if (event.code === 'KeyC') {
+        this.handleToggle('work');
+      } 
+      
     })
   }
 
@@ -78,6 +124,7 @@ class App extends React.Component {
       player1,
       player2,
       showLogin,
+      showMenu,
       username1,
       username2,
       showEndgame,
@@ -87,13 +134,15 @@ class App extends React.Component {
       sound,
       font
     } = this.state;
-    console.log(size)
+    console.log(showLogin)
+    this.handleKey();
     return ( 
       <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
         {showEndgame ? (
           <Endgame winner={winner} endgame={this.handleEndgame} theme={isLight} />
         ) : null}
-        {showLogin ? <Login names={this.handleName} theme={isLight} /> : null}
+        {showLogin ? <Login names={this.handleName} handleLogin={this.handleLogin} theme={isLight} /> : null}
+        {showMenu ? <Menu showItself={this.state.showMenu} handleLogin={this.handleLogin} handleMenu={this.handleMenu} theme={isLight} handleName={this.handleName} handleToggle={this.handleToggle} handleSize={this.handleSize} username1={username1} username2={username2} size={size} sound={sound} font={font} /> : null}
         <Navbar 
           ties={ties}
           username1={username1}
@@ -102,6 +151,7 @@ class App extends React.Component {
           player2={player2}
           handleTheme={this.handleTheme}
           theme={isLight} 
+          handleMenu={this.handleMenu}
           handleToggle={this.handleToggle}
           handleSize={this.handleSize}
           font={font}
@@ -115,7 +165,6 @@ class App extends React.Component {
           size={size}
           font={font}
         />
-        <Audio sound={sound} />
         <Footer theme={isLight} />
     </div>
      );

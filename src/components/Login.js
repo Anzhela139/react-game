@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, set } from '../utils'
+import { get, set } from '../utils';
 
 class Login extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class Login extends React.Component {
         this.props.names(player1, player2); 
         let player = event.target.id;
         this.setState({[ player ]: event.target.value});
-        if (player = 'player1') {
+        if (player === 'player1') {
             set('player1_23096', event.target.value);
         } else {
             set('player2_23096', event.target.value);
@@ -39,12 +39,8 @@ class Login extends React.Component {
         event.preventDefault();
     }
 
-    handleFade = () => {
-        const wrapper = document.querySelector('.wrapper-login');
-        wrapper.classList.add('hidden');
-    }
-
     render() { 
+        const handleLogin = this.props.handleLogin;
         return (
             <div className="wrapper-login">
                 <div className='screen'>
@@ -63,7 +59,7 @@ class Login extends React.Component {
                         </div>
                     </form>
                 </div>
-                <div className="fade" onClick={this.handleFade}></div>
+                <div className="fade" onClick={handleLogin}></div>
             </div>
         );
     }
