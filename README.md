@@ -2,6 +2,6 @@
  
 ## "npm run start" - start development server.
     
-## "build" - create production build.
+## "npm run build" - create production build.
     
-## "test" - run test.
+## "npm run test" - run test.
