@@ -1,7 +1,7 @@
 # react-game
  
-##"npm run start" - start development server.
+## "npm run start" - start development server.
     
-##"build" - create production build.
+## "build" - create production build.
     
-##"test" - run test.
+## "test" - run test.
