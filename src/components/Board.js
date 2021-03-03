@@ -107,14 +107,26 @@ class Board extends React.Component {
         }
     }
 
-    componentDidMount() {
-    }
-  
-    componentWillUnmount() {
+    solution = (size) => {
+        for(let i = 0; i < size; i++) {
+            setTimeout(() => {
+                let tile = document.querySelector(`#tile${i*size+i}`);
+                tile.innerHTML = '<span class="fadeIn">X</span>';
+            }, 1000 * i);
+        }
+        let line = '<div class="line setIn"></div>';
+        setTimeout(() => {
+            document.querySelector('.board').insertAdjacentHTML('beforeend', line);
+        }, 1000 * size);
     }
 
     render() { 
-        const size = this.props.size;
+        const { size, solution } = this.props;
+        if (solution) {
+            setTimeout(() => {
+                this.solution(size);
+            }, 1200);
+        }
         return ( 
             <div className='board' style={{ gridTemplateColumns: `repeat(${size}, 1fr)`, gridTemplateRows: `repeat(${size}, fr)`}}>
                 {this.generateTiles(size).map((el, i) => {
@@ -123,12 +135,14 @@ class Board extends React.Component {
                         id={`tile${i}`}
                         key={i}
                         className={el}
+                        style={{height: `calc(50vh / ${size})`}}
                         onClick={this.handleClick}
                         > 
                         </div>
                     )
                 })}
             </div>
+
          );
     }
 }

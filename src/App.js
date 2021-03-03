@@ -26,6 +26,7 @@ class App extends React.Component {
       size: 3,
       sound: false,
       font: 'cross',
+      solution: false,
     };
   }
 
@@ -83,6 +84,12 @@ class App extends React.Component {
     this.setState({font: (this.state.font === 'cross') ? 'img' : 'cross'});
   }
 
+  handleSolution = () => {
+    this.setState({
+      solution: !this.state.solution,
+    })
+  }
+
   handleSize = (event) => {
     if (event.target) {
       this.setState({size: Number(event.target.value)});
@@ -132,7 +139,8 @@ class App extends React.Component {
       isLight,
       size,
       sound,
-      font
+      font,
+      solution
     } = this.state;
     console.log(showLogin)
     this.handleKey();
@@ -155,6 +163,7 @@ class App extends React.Component {
           handleToggle={this.handleToggle}
           handleSize={this.handleSize}
           font={font}
+          handleSolution={this.handleSolution}
         />
         <Game 
           username1={username1}
@@ -164,6 +173,7 @@ class App extends React.Component {
           theme={isLight} 
           size={size}
           font={font}
+          solution={solution}
         />
         <Footer theme={isLight} />
     </div>

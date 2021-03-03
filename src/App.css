@@ -158,9 +158,23 @@ input.switch_toggle-input:checked+label:after {
   left: 50%;
   transform: translate(-50%, -50%);
   display: grid;
+  overflow: hidden;
+}
+
+.line{
+  content:'';
+  position:absolute;
+  top:50%;
+  left: -50%;
+  width:100vw;
+  height:0;
+  transform: rotate(45deg);
+  border-bottom: 5px solid palevioletred; 
+  z-index: 2;
 }
 
 .tile {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -316,7 +330,7 @@ input.switch_toggle-input:checked+label:after {
   height: 35px;
   padding: 0 1rem;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: calc( (100vw - 480px)/(1280 - 480) * (24 - 16) + 16px);
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
@@ -341,7 +355,7 @@ input.switch_toggle-input:checked+label:after {
   width: 200px;
   height: 35px;
   border-radius: 5px;
-  font-size: 1.3rem;
+  font-size: calc( (100vw - 480px)/(1280 - 480) * (24 - 16) + 16px);
   text-transform: uppercase;
   transition: .3s ease-in-out;
   cursor: pointer;
@@ -376,6 +390,36 @@ select {
 
 .hidden {
   display: none;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes setIn {
+  0% {
+      width: 0;
+  }
+  100% {
+      opacity: 100vw;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: .5s;
+  animation-timing-function: ease-in-out;
+}
+
+.setIn {
+  animation-name: fadeIn;
+  animation-duration: .10s;
+  animation-timing-function: ease-in-out;
 }
 
 @media screen and (max-width: 520px) {

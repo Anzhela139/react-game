@@ -20,7 +20,7 @@ class Game extends React.Component {
 
     render() { 
         const { player1, player2 } = this.state;
-        const { username1, username2, endgame, theme, size, font } = this.props;
+        const { username1, username2, endgame, theme, size, font, solution } = this.props;
         return ( 
             <div className='game'>
                 <p>It's { player1 ? username1 : username2 }'s turn</p>
@@ -33,6 +33,7 @@ class Game extends React.Component {
                     theme={theme}
                     size={size}
                     font={font}
+                    solution={solution}
                 /> 
             </div>
          );

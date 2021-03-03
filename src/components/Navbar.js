@@ -1,10 +1,11 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
-import bxMoon from '@iconify/icons-bx/bx-moon';
+import bxMoon from '@iconify/icons-bx/bx-moon'; 
+import bookExclamationMark24Regular from '@iconify/icons-fluent/book-exclamation-mark-24-regular';
 
 class Navbar extends React.Component {
     render() { 
-        const { player1, player2, ties, username1, username2, handleTheme, handleMenu } = this.props;
+        const { player1, player2, ties, username1, username2, handleTheme, handleMenu, handleSolution } = this.props;
         return (
             <div className={this.props.theme ? 'navbar light-theme' : 'navbar dark-theme'}>
                 <div className="title">
@@ -20,6 +21,7 @@ class Navbar extends React.Component {
                         {username2}:{player2}
                     </h2>
                     <h2>Ties: {ties}</h2>
+                    <Icon icon={bookExclamationMark24Regular} style={{fontSize: '42px'}} onClick={handleSolution} />
                 </div>
             </div>
         );
