@@ -271,6 +271,27 @@ input.switch_toggle-input:checked+label:after {
   grid-template-rows: repeat(3, 1fr);
 }
 
+.wrapper-rules .screen,
+.wrapper-keys .screen {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.wrapper-rules blockquote {
+  max-width: 56vw;
+}
+
+.wrapper-keys ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.wrapper-keys li {
+  list-style: none;
+}
+
 .light-theme .screen {
   background-color: #f9f9f9;
 }
