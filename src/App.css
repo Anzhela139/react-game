@@ -359,6 +359,7 @@ input.switch_toggle-input:checked+label:after {
   text-transform: uppercase;
   transition: .3s ease-in-out;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .light-theme .btn-primary {
