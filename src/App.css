@@ -164,11 +164,10 @@ input.switch_toggle-input:checked+label:after {
 .line{
   content:'';
   position:absolute;
-  top:50%;
-  left: -50%;
+  top:calc(50vh / 6);
+  left: 0;
   width:100vw;
   height:0;
-  transform: rotate(45deg);
   border-bottom: 5px solid palevioletred; 
   z-index: 2;
 }

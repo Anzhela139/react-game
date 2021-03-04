@@ -108,16 +108,17 @@ class Board extends React.Component {
     }
 
     solution = (size) => {
+        this.reset();
         for(let i = 0; i < size; i++) {
             setTimeout(() => {
-                let tile = document.querySelector(`#tile${i*size+i}`);
+                let tile = document.querySelector(`#tile${i}`);
                 tile.innerHTML = '<span class="fadeIn">X</span>';
             }, 1000 * i);
         }
-        /*let line = '<div class="line setIn"></div>';
+        let line = '<div class="line setIn"></div>';
         setTimeout(() => {
             document.querySelector('.board').insertAdjacentHTML('beforeend', line);
-        }, 1000 * size);*/
+        }, 1000 * size);
     }
 
     render() { 
