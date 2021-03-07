@@ -11,7 +11,9 @@ class Login extends React.Component {
     }
 
     handleChange = (event) => {
+        console.log(event.target.value)
         let player = event.target.id;
+        console.log(event)
         this.setState({[ player ]: event.target.value});
         if (player === 'player1') {
             set('player1_23096', event.target.value);
@@ -26,36 +28,22 @@ class Login extends React.Component {
         this.props.names(player1, player2);
     }
 
-    handleSubmit = (event) => {
-        const { player1, player2 } = this.state;
-        this.props.names(player1, player2); 
-        let player = event.target.id;
-        this.setState({[ player ]: event.target.value});
-        if (player === 'player1') {
-            set('player1_23096', event.target.value);
-        } else {
-            set('player2_23096', event.target.value);
-        }
-        event.preventDefault();
-    }
-
     render() { 
         const handleLogin = this.props.handleLogin;
         return (
             <div className="wrapper-login">
                 <div className='screen'>
-                    <form onSubmit={this.handleSubmit}>
+                    <form>
                         <div className="form-group">
                             <label>
                                 Name player1
-                                <input type="text" name="player1" id="player1" className="form-control" onChange={this.handleChange} />    
+                                <input type="name" id="player1" className="form-control" onChange={this.handleChange} />    
                             </label>
-                            
                             <label>
                                 Name player1
-                                <input type="text" name="player2" id="player2" className="form-control" onChange={this.handleChange} />
+                                <input type="name" id="player2" className="form-control" onChange={this.handleChange} />
                             </label>
-                            <button onClick={this.handleClick} className="btn btn-primary" >submit</button>
+                            <button onClick={this.handleClick} className="btn btn-primary">submit</button>
                         </div>
                     </form>
                 </div>

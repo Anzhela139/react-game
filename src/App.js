@@ -63,14 +63,12 @@ class App extends React.Component {
   }
 
   handleMenu = (event) => {
-    event.preventDefault();
     this.setState({
       showMenu: !this.state.showMenu,
     })
   }
 
   handleLogin = (event) => {
-    event.preventDefault();
     this.setState({
       showLogin: !this.state.showLogin,
     })
@@ -106,10 +104,10 @@ class App extends React.Component {
 
   handleKey = () => {
     document.addEventListener('keydown', (event) => {
-      event.preventDefault();
-  
+
       if (event.code === 'KeyM') {
-        this.handleMenu();
+        event.stopImmediatePropagation();
+        this.handleMenu('work');
       } else if (event.code === 'Digit3') {
         this.handleSize(3);
       } else if (event.code === 'Digit4') {
@@ -119,7 +117,11 @@ class App extends React.Component {
       } else if (event.code === 'Digit6') {
         this.handleSize(6);
       } else if (event.code === 'KeyC') {
+        event.stopImmediatePropagation();
         this.handleToggle('work');
+      } else if (event.code === 'KeyT') {
+        event.stopImmediatePropagation();
+        this.handleTheme('work');
       } 
       
     })
@@ -142,7 +144,6 @@ class App extends React.Component {
       font,
       solution
     } = this.state;
-    console.log(showLogin)
     this.handleKey();
     return ( 
       <div className={isLight ? 'App light-theme' : 'App dark-theme'}>

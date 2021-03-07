@@ -374,6 +374,10 @@ input.switch_toggle-input:checked+label:after {
   border: none;
   width: 200px;
   height: 35px;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   font-size: calc( (100vw - 480px)/(1280 - 480) * (24 - 16) + 16px);
   text-transform: uppercase;
@@ -441,6 +445,18 @@ select {
   animation-name: fadeIn;
   animation-duration: .10s;
   animation-timing-function: ease-in-out;
+}
+
+@media screen and (max-width: 865px) and (min-width: 520px) {
+  .wrapper-menu .screen,
+  .wrapper-login .screen {
+    height: 75vh;
+  }
+
+  .row_bottom {
+    height: 20vh;
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 520px) {
