@@ -1,58 +1,57 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Game from "./components/Game";
-import Menu from './components/Menu';
-import Login from "./components/Login";
-import Endgame from "./components/Endgame";
-import Footer from './components/Footer';
-import { get, set } from './utils';
-import './App.css';
+import React from 'react'
+import Navbar from './components/Navbar'
+import Game from './components/Game1'
+import Menu from './components/Menu'
+import Login from './components/Login'
+import Footer from './components/Footer'
+import SvgBG from './components/SvgBG'
+import { get, set } from './utils'
+import './App.css'
 
+const SizeContext = React.createContext({})
+const SizeProvider = SizeContext.Provider
+const SizeConsumer = SizeContext.Consumer
+
+const FontContext = React.createContext({
+  font: 'cross',
+})
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { 
+    super(props)
+    this.state = {
       ties: get('ties_24056') || 0,
       username1: get('player1_23096') || 'Player1',
       username2: get('player2_28096') || 'Player2',
-      winner: '',
+      isNew: false,
       player1: 0,
       player2: 0,
       showMenu: true,
       showLogin: false,
-      showEndgame: false,
       isLight: true,
       size: 3,
       sound: false,
       font: 'cross',
       solution: false,
-    };
+    }
   }
 
   handleScore = (player) => {
-    const { username1, username2 } = this.state;
-    let winner;
+    const { username1, username2 } = this.state
     if (player === 'player1') {
-      winner = username1;
       this.setState({
         [player]: this.state[player] + 1,
       })
     } else if (player === 'player2') {
-      winner = username2;
       this.setState({
         [player]: this.state[player] + 1,
       })
     } else {
-      winner = 'Tied';
       this.setState({
         ties: this.state.ties + 1,
       })
-      set('ties_24056', this.state.ties + 1);
+      set('ties_24056', this.state.ties + 1)
     }
-    this.setState({
-      winner: winner,
-    })
   }
 
   handleName = (player1, player2) => {
@@ -74,12 +73,8 @@ class App extends React.Component {
     })
   }
 
-  handleEndgame = (input) => {
-    this.setState({ showEndgame: input });
-  }
-
   handleToggle = (event) => {
-    this.setState({font: (this.state.font === 'cross') ? 'img' : 'cross'});
+    this.setState({ font: this.state.font === 'cross' ? 'img' : 'cross' })
   }
 
   handleSolution = () => {
@@ -90,9 +85,9 @@ class App extends React.Component {
 
   handleSize = (event) => {
     if (event.target) {
-      this.setState({size: Number(event.target.value)});
+      this.setState({ size: Number(event.target.value) })
     } else {
-      this.setState({size: event});
+      this.setState({ size: event })
     }
   }
 
@@ -102,84 +97,119 @@ class App extends React.Component {
     })
   }
 
-  handleKey = () => {
-    document.addEventListener('keydown', (event) => {
-
-      if (event.code === 'KeyM') {
-        event.stopImmediatePropagation();
-        this.handleMenu('work');
-      } else if (event.code === 'Digit3') {
-        this.handleSize(3);
-      } else if (event.code === 'Digit4') {
-        this.handleSize(4);
-      } else if (event.code === 'Digit5') {
-        this.handleSize(5);
-      } else if (event.code === 'Digit6') {
-        this.handleSize(6);
-      } else if (event.code === 'KeyC') {
-        event.stopImmediatePropagation();
-        this.handleToggle('work');
-      } else if (event.code === 'KeyT') {
-        event.stopImmediatePropagation();
-        this.handleTheme('work');
-      } 
-      
+  handleNewGame = () => {
+    this.setState({
+      isNew: !this.state.isNew,
     })
   }
 
-  render() { 
+  handleWinner = (value) => {
+    if (value === 'X') {
+      this.setState({
+        player1: this.state.player1 + 1,
+      })
+    } else {
+      this.setState({
+        player2: this.state.player2 + 1,
+      })
+    }
+  }
+
+  handleKeys = () => {}
+
+  componentDidMount = () => {
+    document.addEventListener('keydown', (event) => {
+      if (event.code === 'KeyM') {
+        event.stopImmediatePropagation()
+        this.handleMenu('work')
+      } else if (event.code === 'Digit3') {
+        this.handleSize(3)
+      } else if (event.code === 'Digit4') {
+        this.handleSize(4)
+      } else if (event.code === 'Digit5') {
+        this.handleSize(5)
+      } else if (event.code === 'Digit6') {
+        this.handleSize(6)
+      } else if (event.code === 'KeyC') {
+        event.stopImmediatePropagation()
+        this.handleToggle('work')
+      } else if (event.code === 'KeyT') {
+        event.stopImmediatePropagation()
+        this.handleTheme('work')
+      }
+    })
+  }
+  componentWillUnmount = () => {
+    document.addEventListener('keydown', (event) => {
+      console.log(event)
+    })
+  }
+
+  render() {
     const {
-      ties, 
+      ties,
       player1,
       player2,
       showLogin,
       showMenu,
       username1,
       username2,
-      showEndgame,
-      winner,
+      isNew,
       isLight,
       size,
       sound,
       font,
-      solution
-    } = this.state;
-    this.handleKey();
-    return ( 
-      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
-        {showEndgame ? (
-          <Endgame winner={winner} endgame={this.handleEndgame} theme={isLight} />
-        ) : null}
-        {showLogin ? <Login names={this.handleName} handleLogin={this.handleLogin} theme={isLight} /> : null}
-        {showMenu ? <Menu showItself={this.state.showMenu} handleLogin={this.handleLogin} handleMenu={this.handleMenu} theme={isLight} handleName={this.handleName} handleToggle={this.handleToggle} handleSize={this.handleSize} username1={username1} username2={username2} size={size} sound={sound} font={font} /> : null}
-        <Navbar 
-          ties={ties}
-          username1={username1}
-          username2={username2}
-          player1={player1}
-          player2={player2}
-          handleTheme={this.handleTheme}
-          theme={isLight} 
-          handleMenu={this.handleMenu}
-          handleToggle={this.handleToggle}
-          handleSize={this.handleSize}
-          font={font}
-          handleSolution={this.handleSolution}
-        />
-        <Game 
-          username1={username1}
-          username2={username2}
-          endgame={this.handleEndgame}
-          handleScore={this.handleScore}
-          theme={isLight} 
-          size={size}
-          font={font}
-          solution={solution}
-        />
-        <Footer theme={isLight} />
-    </div>
-     );
+      solution,
+    } = this.state
+    const { theme } = this.props
+    return (
+      <SizeContext.Provider value={size}>
+        <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
+          <div className="svg_background">
+            <SvgBG />
+          </div>
+          {showLogin ? <Login names={this.handleName} handleLogin={this.handleLogin} /> : null}
+          {showMenu ? (
+            <Menu
+              showItself={this.state.showMenu}
+              handleLogin={this.handleLogin}
+              handleMenu={this.handleMenu}
+              handleName={this.handleName}
+              handleToggle={this.handleToggle}
+              handleSize={this.handleSize}
+              handleTheme={this.handleTheme}
+              handleNewGame={this.handleNewGame}
+              handleSolution={this.handleSolution}
+              username1={username1}
+              username2={username2}
+              size={size}
+              sound={sound}
+              font={font}
+            />
+          ) : null}
+          <Navbar
+            ties={ties}
+            username1={username1}
+            username2={username2}
+            player1={player1}
+            player2={player2}
+            handleMenu={this.handleMenu}
+          />
+          <Game
+            username1={username1}
+            username2={username2}
+            handleScore={this.handleScore}
+            size={size}
+            font={font}
+            solution={solution}
+            handleWinner={this.handleWinner}
+            isNew={isNew}
+          />
+          <Footer theme={isLight} />
+        </div>
+      </SizeContext.Provider>
+    )
   }
 }
- 
-export default App;
+
+export { App, SizeConsumer }
