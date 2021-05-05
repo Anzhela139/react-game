@@ -2,8 +2,14 @@ import React, { useState } from 'react'
 import { get, set } from '../utils'
 
 function Login(props) {
-  const [player1, setPlayer1] = useState(get('player1_23096') || '')
-  const [player2, setPlayer2] = useState(get('player2_28096') || '')
+  const [player1, setPlayer1] = useState(get('player1_23096') || 'Player1')
+  const [player2, setPlayer2] = useState(get('player2_28096') || 'Player2')
+
+  const modalStyles = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 
   const handleChange = (event) => {
     let player = event.target.id
@@ -24,7 +30,7 @@ function Login(props) {
 
   return (
     <div className="wrapper-login">
-      <div className="screen">
+      <div className="screen" style={modalStyles}>
         <form>
           <div className="form-group">
             <label>

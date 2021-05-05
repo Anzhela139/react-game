@@ -1,6 +1,7 @@
 import React from 'react'
+import { useState } from 'react'
 import Rules from './Rules'
-import Audio from './Audio'
+import Login from './Login'
 import Keys from './Keys'
 import { get, set } from '../utils'
 import { Icon } from '@iconify/react'
@@ -17,33 +18,23 @@ const modalStyles = {
   width: '100%',
 }
 
-class Menu extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showItself: this.props.showItself,
-      showLogin: false,
-      showRules: false,
-      showKeys: false,
-    }
-  }
+const Menu = (props) => {
+  const [showLogin, setShowLogin] = useState(false)
+  const [showRules, setShowRules] = useState(false)
+  const [showKeys, setShowKeys] = useState(false)
 
-  handleRules = (event) => {
+  const handleRules = (event) => {
     event.preventDefault()
-    this.setState({
-      showRules: !this.state.showRules,
-    })
+    setShowRules(!showRules)
   }
 
-  handleKeys = (event) => {
+  const handleKeys = (event) => {
     event.preventDefault()
-    this.setState({
-      showKeys: !this.state.showKeys,
-    })
+    setShowKeys(!showKeys)
   }
 
-  handleSave = () => {
-    const { font, size, username1, username2 } = this.props
+  const handleSave = () => {
+    const { font, size, username1, username2 } = props
     let moves = []
     let allTiles = document.querySelectorAll('.tile')
     for (let i = 0; i < allTiles.length; i++) {
@@ -53,19 +44,8 @@ class Menu extends React.Component {
     set('game_230455', game)
   }
 
-  handleNew = (event) => {
-    event.preventDefault()
-    const { handleNewGame } = this.props
-    handleNewGame()
-    let allTiles = document.querySelectorAll('.tile')
-    for (let i = 0; i < allTiles.length; i++) {
-      allTiles[i].innerHTML = ''
-      allTiles[i].classList.add('not-played')
-    }
-  }
-
-  handleResume = () => {
-    const { handleToggle, handleSize, handleName } = this.props
+  const handleResume = () => {
+    const { handleToggle, handleSize, handleName } = props
     let game = get('game_230455')
     console.log(game[4][0][0])
     handleToggle(game[0])
@@ -79,93 +59,86 @@ class Menu extends React.Component {
     }
   }
 
-  handleLogin = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault()
-    this.setState({
-      showLogin: !this.state.showLogin,
-    })
+    setShowLogin(!showLogin)
   }
 
-  handleChange = (event) => {
-    this.setState({ size: Number(event.target.value) })
-  }
-
-  render() {
-    const { handleMenu, handleToggle, handleLogin, handleSize, font, sound } = this.props
-    if (this.state.showItself) {
-      return (
-        <div className="wrapper-menu" style={modalStyles}>
-          <div className="screen">
-            <div className="row_top">
-              <select name="board-size" id="board-size" onChange={handleSize}>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-              </select>
-              <div className="switch_toggle">
-                <input
-                  id="switch_toggle"
-                  type="checkbox"
-                  name="toggle"
-                  className="switch_toggle-input"
-                  onChange={handleToggle}
-                />
-                <label
-                  id="switch_toggle-label"
-                  htmlFor="switch_toggle"
-                  style={font === 'cross' ? { paddingRight: '1rem' } : { paddingRight: '3.5rem' }}
-                >
-                  {font === 'cross' ? (
-                    'X'
-                  ) : (
-                    <Icon icon={imageIcon} style={{ color: '#f6f6f6', fontSize: '42px' }} />
-                  )}
-                </label>
-              </div>
-              <Icon
-                icon={bxMoon}
-                style={{ color: '##161616', fontSize: '42px' }}
-                onClick={this.props.handleTheme}
+  if (props.showItself) {
+    return (
+      <div className="wrapper-menu" style={modalStyles}>
+        <div className="screen">
+          <div className="row_top">
+            <select name="board-size" id="board-size" onChange={props.handleSize}>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+            <div className="switch_toggle">
+              <input
+                id="switch_toggle"
+                type="checkbox"
+                name="toggle"
+                className="switch_toggle-input"
+                onChange={props.handleToggle}
               />
-              <Icon icon={bxUserCircle} style={{ fontSize: '56px' }} onClick={handleLogin} />
-              <Icon
-                icon={bookExclamationMark24Regular}
-                style={{ fontSize: '42px' }}
-                onClick={this.props.handleSolution}
-              />
+              <label
+                id="switch_toggle-label"
+                htmlFor="switch_toggle"
+                style={
+                  props.font === 'cross' ? { paddingRight: '1rem' } : { paddingRight: '3.5rem' }
+                }
+              >
+                {props.font === 'cross' ? (
+                  'X'
+                ) : (
+                  <Icon icon={imageIcon} style={{ color: '#f6f6f6', fontSize: '42px' }} />
+                )}
+              </label>
             </div>
-            <div className="row_left">
-              <Audio sound={sound} />
-            </div>
-            <div className="row_right">
-              <button className="btn btn-secondary" onClick={this.handleRules}>
-                Rules
-              </button>
-              <button className="btn btn-secondary" onClick={this.handleKeys}>
-                Keys
-              </button>
-            </div>
-            <div className="row_bottom">
-              <button className="btn btn-secondary" onClick={this.handleSave}>
-                Save game
-              </button>
-              <button className="btn btn-secondary" onClick={this.handleNew}>
-                New game
-              </button>
-              <button className="btn btn-secondary" onClick={this.handleResume}>
-                Resume game
-              </button>
-            </div>
+            <Icon
+              icon={bxMoon}
+              style={{ color: '##161616', fontSize: '42px' }}
+              onClick={props.handleTheme}
+            />
+            <Icon icon={bxUserCircle} style={{ fontSize: '56px' }} onClick={handleLogin} />
+            <Icon
+              icon={bookExclamationMark24Regular}
+              style={{ fontSize: '42px' }}
+              onClick={props.handleSolution}
+            />
           </div>
-          {this.state.showRules ? <Rules handleRules={this.handleRules} /> : null}
-          {this.state.showKeys ? <Keys handleKeys={this.handleKeys} /> : null}
-          <div className="fade" onClick={handleMenu}></div>
+          <div className="row_left">
+          </div>
+          <div className="row_right">
+            <button className="btn btn-secondary" onClick={handleRules}>
+              Rules
+            </button>
+            <button className="btn btn-secondary" onClick={handleKeys}>
+              Keys
+            </button>
+          </div>
+          <div className="row_bottom">
+            <button className="btn btn-secondary" onClick={handleSave}>
+              Save game
+            </button>
+            <button className="btn btn-secondary" onClick={props.handleNewGame}>
+              New game
+            </button>
+            <button className="btn btn-secondary" onClick={handleResume}>
+              Resume game
+            </button>
+          </div>
         </div>
-      )
-    } else {
-      return null
-    }
+        {showLogin ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
+        {showRules ? <Rules handleRules={handleRules} /> : null}
+        {showKeys ? <Keys handleKeys={handleKeys} /> : null}
+        {showLogin || showRules || showKeys ? null : <div className="fade" onClick={props.handleMenu} />}
+      </div>
+    )
+  } else {
+    return null
   }
 }
 

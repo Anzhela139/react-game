@@ -285,14 +285,10 @@ input.switch_toggle-input:checked+label:after {
   z-index: 4;
 }
 
-.light-theme .wrapper-login,
-.light-theme .wrapper-endgame,
 .light-theme .wrapper-menu {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.dark-theme .wrapper-login,
-.dark-theme .wrapper-endgame,
 .dark-theme .wrapper-menu {
   background-color: rgba(0, 0, 0, 0.7);
 }
@@ -555,4 +551,22 @@ select {
 
 .tile.active {
   transition: .3s ease-in-out;
+}
+
+.wrapper-sound {
+  position: relative;
+  max-width: 25vw;
+}
+
+.wrapper-sound input {
+  width: 100%;
+}
+
+.wrapper-sound span {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background-color: #61dafb;
+  border-radius: 3px;
+  display: block;
 }

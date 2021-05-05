@@ -1,215 +1,138 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './components/Navbar'
 import Game from './components/Game1'
 import Menu from './components/Menu'
-import Login from './components/Login'
 import Footer from './components/Footer'
 import SvgBG from './components/SvgBG'
-import { get, set } from './utils'
+import { get } from './utils'
 import './App.css'
 
 const SizeContext = React.createContext({})
-const SizeProvider = SizeContext.Provider
-const SizeConsumer = SizeContext.Consumer
 
-const FontContext = React.createContext({
-  font: 'cross',
-})
+const App = () => {
+  const [ties, setTies] = useState(get('ties_24056') || 0)
+  const [username1, setUsername1] = useState(get('player1_23096') || 'Player1')
+  const [username2, setUsername2] = useState(get('player2_23096') || 'Player2')
+  const [isNew, setIsNew] = useState(false)
+  const [player1, setPlayer1] = useState(0)
+  const [player2, setPlayer2] = useState(0)
+  const [showMenu, setShowMenu] = useState(true)
+  const [isLight, setIsLight] = useState(true)
+  const [size, setSize] = useState(3)
+  const [font, setFont] = useState('cross')
+  const [solution, setSolution] = useState(false)
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ties: get('ties_24056') || 0,
-      username1: get('player1_23096') || 'Player1',
-      username2: get('player2_28096') || 'Player2',
-      isNew: false,
-      player1: 0,
-      player2: 0,
-      showMenu: true,
-      showLogin: false,
-      isLight: true,
-      size: 3,
-      sound: false,
-      font: 'cross',
-      solution: false,
-    }
+  const handleName = (player1, player2) => {
+    setUsername1(player1)
+    setUsername2(player2)
   }
 
-  handleScore = (player) => {
-    const { username1, username2 } = this.state
-    if (player === 'player1') {
-      this.setState({
-        [player]: this.state[player] + 1,
-      })
-    } else if (player === 'player2') {
-      this.setState({
-        [player]: this.state[player] + 1,
-      })
-    } else {
-      this.setState({
-        ties: this.state.ties + 1,
-      })
-      set('ties_24056', this.state.ties + 1)
-    }
+  const handleMenu = () => {
+    setShowMenu(!showMenu)
   }
 
-  handleName = (player1, player2) => {
-    this.setState({
-      username1: player1,
-      username2: player2,
-    })
+  const handleToggle = () => {
+    setFont(font === 'cross' ? 'img' : 'cross')
   }
 
-  handleMenu = (event) => {
-    this.setState({
-      showMenu: !this.state.showMenu,
-    })
+  const handleSolution = () => {
+    setSolution(!solution)
   }
 
-  handleLogin = (event) => {
-    this.setState({
-      showLogin: !this.state.showLogin,
-    })
-  }
-
-  handleToggle = (event) => {
-    this.setState({ font: this.state.font === 'cross' ? 'img' : 'cross' })
-  }
-
-  handleSolution = () => {
-    this.setState({
-      solution: !this.state.solution,
-    })
-  }
-
-  handleSize = (event) => {
+  const handleSize = (event) => {
     if (event.target) {
-      this.setState({ size: Number(event.target.value) })
+      setSize(Number(event.target.value))
     } else {
-      this.setState({ size: event })
+      setSize(event)
     }
   }
 
-  handleTheme = (isLight) => {
-    this.setState({
-      isLight: !this.state.isLight,
-    })
+  const handleTheme = () => {
+    setIsLight(!isLight)
   }
 
-  handleNewGame = () => {
-    this.setState({
-      isNew: !this.state.isNew,
-    })
+  const handleNewGame = () => {
+    setIsNew(!isNew)
   }
 
-  handleWinner = (value) => {
+  const handleWinner = (value) => {
     if (value === 'X') {
-      this.setState({
-        player1: this.state.player1 + 1,
-      })
+      setPlayer1(player1 + 1)
+    } else if (value === 'O') {
+      setPlayer2(player2 + 1)
     } else {
-      this.setState({
-        player2: this.state.player2 + 1,
-      })
+      setTies(ties + 1)
     }
   }
 
-  handleKeys = () => {}
-
-  componentDidMount = () => {
+  useEffect(() => {
     document.addEventListener('keydown', (event) => {
       if (event.code === 'KeyM') {
         event.stopImmediatePropagation()
-        this.handleMenu('work')
+        handleMenu()
       } else if (event.code === 'Digit3') {
-        this.handleSize(3)
+        handleSize(3)
       } else if (event.code === 'Digit4') {
-        this.handleSize(4)
+        handleSize(4)
       } else if (event.code === 'Digit5') {
-        this.handleSize(5)
+        handleSize(5)
       } else if (event.code === 'Digit6') {
-        this.handleSize(6)
+        handleSize(6)
       } else if (event.code === 'KeyC') {
         event.stopImmediatePropagation()
-        this.handleToggle('work')
+        handleToggle()
       } else if (event.code === 'KeyT') {
         event.stopImmediatePropagation()
-        this.handleTheme('work')
+        handleTheme()
       }
     })
-  }
-  componentWillUnmount = () => {
-    document.addEventListener('keydown', (event) => {
+    return document.addEventListener('keydown', (event) => {
       console.log(event)
     })
-  }
+      //eslint-disable-next-line
+  }, [])
 
-  render() {
-    const {
-      ties,
-      player1,
-      player2,
-      showLogin,
-      showMenu,
-      username1,
-      username2,
-      isNew,
-      isLight,
-      size,
-      sound,
-      font,
-      solution,
-    } = this.state
-    const { theme } = this.props
-    return (
-      <SizeContext.Provider value={size}>
-        <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
-          <div className="svg_background">
-            <SvgBG />
-          </div>
-          {showLogin ? <Login names={this.handleName} handleLogin={this.handleLogin} /> : null}
-          {showMenu ? (
-            <Menu
-              showItself={this.state.showMenu}
-              handleLogin={this.handleLogin}
-              handleMenu={this.handleMenu}
-              handleName={this.handleName}
-              handleToggle={this.handleToggle}
-              handleSize={this.handleSize}
-              handleTheme={this.handleTheme}
-              handleNewGame={this.handleNewGame}
-              handleSolution={this.handleSolution}
-              username1={username1}
-              username2={username2}
-              size={size}
-              sound={sound}
-              font={font}
-            />
-          ) : null}
-          <Navbar
-            ties={ties}
+  return (
+    <SizeContext.Provider value={size}>
+      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
+        <div className="svg_background">
+          <SvgBG />
+        </div>
+        {showMenu ? (
+          <Menu
+            showItself={showMenu}
+            handleMenu={handleMenu}
+            handleName={handleName}
+            handleToggle={handleToggle}
+            handleSize={handleSize}
+            handleTheme={handleTheme}
+            handleNewGame={handleNewGame}
+            handleSolution={handleSolution}
             username1={username1}
             username2={username2}
-            player1={player1}
-            player2={player2}
-            handleMenu={this.handleMenu}
-          />
-          <Game
-            username1={username1}
-            username2={username2}
-            handleScore={this.handleScore}
             size={size}
             font={font}
-            solution={solution}
-            handleWinner={this.handleWinner}
-            isNew={isNew}
           />
-          <Footer theme={isLight} />
-        </div>
-      </SizeContext.Provider>
-    )
-  }
+        ) : null}
+        <Navbar
+          ties={ties}
+          username1={username1}
+          username2={username2}
+          player1={player1}
+          player2={player2}
+          handleMenu={handleMenu}
+        />
+        <Game
+          size={size}
+          font={font}
+          solution={solution}
+          handleWinner={handleWinner}
+          isNew={isNew}
+        />
+        <Footer theme={isLight} />
+      </div>
+    </SizeContext.Provider>
+  )
 }
 
-export { App, SizeConsumer }
+export { App }

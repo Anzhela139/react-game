@@ -1,4 +1,6 @@
 import React from 'react'
+import Timer from './Timer'
+import Audio from './Audio'
 
 const Navbar = (props) => {
   return (
@@ -8,6 +10,7 @@ const Navbar = (props) => {
         <button className="btn btn-secondary" onClick={props.handleMenu}>
           Menu
         </button>
+        <Audio sound={props.sound} />
       </div>
       <div className="statistics">
         <h2>
@@ -17,6 +20,7 @@ const Navbar = (props) => {
           {props.username2}:{props.player2}
         </h2>
         <h2>Ties: {props.ties}</h2>
+        <h2><Timer /></h2>
       </div>
     </div>
   )

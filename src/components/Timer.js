@@ -1,13 +1,26 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 
-class Timer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+const Timer = () => {
+  const now = new Date().toLocaleTimeString();
+  let [time, setTime] = useState(now);
+
+  function updateTime(){
+    const newTime = new Date().toLocaleTimeString();
+    setTime(newTime);
   }
-  render() {
-    return <div className="timer"></div>
-  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateTime();
+    }, 1000);
+  
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  return (<div className="timer">{time}</div>) 
 }
 
 export default Timer

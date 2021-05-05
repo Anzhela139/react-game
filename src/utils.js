@@ -64,6 +64,7 @@ const dimension = (arr, play, size) => {
   //eslint-disable-next-line
   dimensionArr = arr.reduce(
     (rows, key, index) =>
+      //eslint-disable-next-line
       (index % size == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows,
     [],
   )
@@ -94,4 +95,4 @@ const isEndgame = (arr, play, size) => {
   }
 }
 
-export { get, set, randomArr, isEndgame }
+export { get, set, randomArr, canOnlyFireOnce, isEndgame }
