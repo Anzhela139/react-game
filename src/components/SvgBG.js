@@ -1,6 +1,20 @@
 import './SvgBg.css'
+import { useState, useEffect } from 'react'
 
 const SvgBG = () => {
+  const width = 1440
+  const height = 768
+  const [winWidth, setWidth] = useState(1440)
+  const [winHeight, setHeight] = useState(768)
+
+  useEffect(() => {
+    setWidth(window.width)
+    setHeight(window.height)
+    //eslint-disable-next-line
+  }, [])
+
+  console.log(winWidth)
+
   return (
     <svg
       version="1.1"
@@ -8,8 +22,8 @@ const SvgBG = () => {
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"
-      viewBox="0 0 1440 768"
-      style={{ enableBackground: 'new 0 0 1440 768' }}
+      viewBox={`0 0 ${winWidth || width} ${winHeight || height}`}
+      style={{ enableBackground: `new 0 0 ${winWidth || width} ${winHeight || height}` }}
     >
       <linearGradient
         id="SVGID_1_"
@@ -23,7 +37,7 @@ const SvgBG = () => {
         <stop offset="2.165098e-07" style={{ stopColor: '#00FFD9', stopOpacity: '0.76' }} />
         <stop offset="1" style={{ stopColor: '#FF00A1' }} />
       </linearGradient>
-      <rect className="st0" width="1440" height="768" />
+      <rect className="st0" width={winWidth || width} height={winHeight || height} />
       <linearGradient
         id="SVGID_2_"
         gradientUnits="userSpaceOnUse"
@@ -2950,7 +2964,7 @@ const SvgBG = () => {
         <stop offset="2.165098e-07" style={{ stopColor: '#00FFD9', stopOpacity: '0.76' }} />
         <stop offset="1" style={{ stopColor: '#FF00A1' }} />
       </linearGradient>
-      <rect className="st171" width="1440" height="768" />
+      <rect className="st171" width={winWidth || width} height={winHeight || height} />
       <linearGradient
         id="SVGID_173_"
         gradientUnits="userSpaceOnUse"

@@ -109,8 +109,7 @@ const Menu = (props) => {
               onClick={props.handleSolution}
             />
           </div>
-          <div className="row_left">
-          </div>
+          <div className="row_left"></div>
           <div className="row_right">
             <button className="btn btn-secondary" onClick={handleRules}>
               Rules
@@ -134,7 +133,9 @@ const Menu = (props) => {
         {showLogin ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
         {showRules ? <Rules handleRules={handleRules} /> : null}
         {showKeys ? <Keys handleKeys={handleKeys} /> : null}
-        {showLogin || showRules || showKeys ? null : <div className="fade" onClick={props.handleMenu} />}
+        {showLogin || showRules || showKeys ? null : (
+          <div className="fade" onClick={props.handleMenu} />
+        )}
       </div>
     )
   } else {

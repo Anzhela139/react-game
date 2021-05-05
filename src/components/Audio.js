@@ -42,7 +42,7 @@ const Audio = () => {
 
   useEffect(() => {
     setSrcAudio(ranAudios[currI])
-      //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [])
 
   const reload = useCallback(() => {
@@ -65,7 +65,7 @@ const Audio = () => {
     } catch (error) {
       console.log(error)
     }
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [currI, srcAudio, audioEl])
 
   const stopMusic = (event) => {
@@ -86,7 +86,7 @@ const Audio = () => {
     const duration = len / 100
     setTimeout(() => {
       console.log(duration)
-    }, 1000);
+    }, 1000)
   }
 
   console.log(setAudios, setRanAudios, setLength, length)
@@ -99,8 +99,10 @@ const Audio = () => {
       {isActive && <Icon icon={soundDown} style={{ fontSize: '36px' }} onClick={volumeDown} />}
       {isActive && <Icon icon={randomIcon} style={{ fontSize: '36px' }} onClick={reload} />}
       {isActive && <input type="text" name="title" id="title" readOnly value={srcAudio} />}
-      {// isActive && <span style={{width: `${length}%`}} />}
-      }{isActive && (
+      {
+        // isActive && <span style={{width: `${length}%`}} />}
+      }
+      {isActive && (
         <audio ref={(el) => (audioEl = el)} src={`${path}${srcAudio}`} onEnded={reload} />
       )}
     </div>

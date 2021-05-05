@@ -20,7 +20,9 @@ const Navbar = (props) => {
           {props.username2}:{props.player2}
         </h2>
         <h2>Ties: {props.ties}</h2>
-        <h2><Timer /></h2>
+        <h2>
+          <Timer />
+        </h2>
       </div>
     </div>
   )

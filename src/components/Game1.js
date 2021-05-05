@@ -71,18 +71,18 @@ const Game = (props) => {
   }
   useEffect(() => {
     handleNewGame()
-      //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [props.isNew])
 
   useEffect(() => {
     if (props.solution) handleSolution()
-      //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [props.solution])
 
   return (
     <div className="game">
       <div className="game-board">
-        <div className="board">{renderBoard(props.size)}</div>  
+        <div className="board">{renderBoard(props.size)}</div>
       </div>
     </div>
   )
