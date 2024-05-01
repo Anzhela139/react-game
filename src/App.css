@@ -118,6 +118,11 @@ svg.icons:hover {
   text-decoration: none;
 }
 
+.start-screen {
+  display: grid;
+  row-gap: 12px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -420,7 +425,6 @@ input.switch_toggle-input:checked+label:after {
   appearance: none;
   outline: none;
   border: none;
-  width: 200px;
   height: 35px;
   padding: 0 1rem;
   display: flex;
@@ -428,7 +432,6 @@ input.switch_toggle-input:checked+label:after {
   align-items: center;
   border-radius: 5px;
   font-size: calc( (100vw - 480px)/(1280 - 480) * (24 - 16) + 16px);
-  text-transform: uppercase;
   transition: .3s ease-in-out;
   cursor: pointer;
   white-space: nowrap;
@@ -440,8 +443,8 @@ input.switch_toggle-input:checked+label:after {
 }
 
 .dark-theme .btn-primary {
-  background-color: aqua;
-  color: #f9f9f9;
+  background-color: #61dafb;
+  color: #282c34;
 }
 
 .btn-primary:hover,

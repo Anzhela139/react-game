@@ -3,23 +3,26 @@ import { useState } from 'react'
 import Rules from './modals/Rules'
 import Login from './modals/Login'
 import Keys from './modals/Keys'
+import Base from './modals/base'
+import StartScreen from './modals/startScreen'
+import Gameplay from './modals/Gameplay'
+
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { get, set } from '../utils'
 import { mdiImageOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import { mdiAccountCircleOutline } from '@mdi/js';
+import { mdiWindowClose } from '@mdi/js';
 
 
 import { mdiWeatherNight } from '@mdi/js';
 
-const modalStyles = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    width: '100%',
-}
-
 const Menu = (props) => {
+    const menu = useSelector(state => state.menu)
+    const dispatch = useDispatch()
+    console.log(menu)
+    const [showStartScreen, setStartScreen] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
     const [showRules, setShowRules] = useState(false)
     const [showKeys, setShowKeys] = useState(false)
@@ -65,96 +68,27 @@ const Menu = (props) => {
         setShowLogin(!showLogin)
     }
 
+    const handleClose = (event) => {
+        event.preventDefault()
+        if (menu.value === 'StartScreen') {
+
+        } else {
+
+        }
+    }
+
     if (props.showItself) {
         return (
-            <div className="wrapper-menu" style={modalStyles}>
-                <div className="screen">
-                    <div className="row_top">
-                        <div>
-                            Select board size
-                            <select name="board-size" id="board-size" onChange={props.handleSize}>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div>
-
-                        <div className="switch_toggle">
-                            Toggle crosses or icons
-                            <input
-                                id="switch_toggle"
-                                type="checkbox"
-                                name="toggle"
-                                className="switch_toggle-input"
-                                onChange={props.handleToggle}
-                            />
-                            <label
-                                id="switch_toggle-label"
-                                htmlFor="switch_toggle"
-                                style={
-                                    props.font === 'cross' ? { paddingRight: '1rem' } : { paddingRight: '3.5rem' }
-                                }
-                            >
-                                {props.font === 'cross' ? (
-                                    'X'
-                                ) : (
-                                    <Icon path={mdiImageOutline} size={2} />
-                                )}
-                            </label>
-                        </div>
-                        <div>
-                            Toggle mode
-                            <Icon
-                                path={mdiWeatherNight} 
-                                size={2}
-                                onClick={props.handleTheme}
-                            />
-                        </div>
-                        <div>
-                            Login
-                            <Icon path={mdiAccountCircleOutline} size={2} onClick={handleLogin} />
-
-                        </div>
-
-                    </div>
-                    <div className="row_left"></div>
-                    <div className="row_right">
-                        <button className="btn btn-secondary" onClick={props.handleSolution}>
-                            Show solution 
-                        </button>
-                        <button className="btn btn-secondary" onClick={handleRules}>
-                            Show rules
-                        </button>
-                        <button className="btn btn-secondary" onClick={handleKeys}>
-                            Show hotkeys
-                        </button>
-                    </div>
-                    <div className="row_bottom">
-                        <button className="btn btn-secondary" onClick={handleSave}>
-                            Save current game
-                        </button>
-                        <button className="btn btn-secondary" onClick={handleSave}>
-                            Gameplay
-                        </button>
-                        <button className="btn btn-secondary" onClick={props.handleNewGame}>
-                            Settings
-                        </button>
-                        <button className="btn btn-secondary" onClick={props.handleNewGame}>
-                            Start new game
-                        </button>
-                        <button className="btn btn-secondary" onClick={handleResume}>
-                            Resume saved game
-                        </button>
-                    </div>
-                </div>
-                {showLogin ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
-                {showRules ? <Rules handleRules={handleRules} /> : null}
-                {showKeys ? <Keys handleKeys={handleKeys} /> : null}
-                {showLogin || showRules || showKeys ? null : (
-                    <div className="fade" onClick={props.handleMenu} />
-                )}
-            </div>
+            <Base handleClose={handleClose} content={
+                <>
+                    {menu.value === 'StartScreen' ? <StartScreen /> : null}
+                    {menu.value === 'Gameplay' ? <Gameplay /> : null}
+                    {menu.value === 'Login' ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
+                    {menu.value === 'Rules' ? <Rules handleRules={handleRules} /> : null}
+                    {menu.value === 'Keys' ? <Keys handleKeys={handleKeys} /> : null}
+                </>
+            }>
+            </Base>
         )
     } else {
         return null

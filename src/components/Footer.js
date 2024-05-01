@@ -7,23 +7,13 @@ class Footer extends React.Component {
       <footer className="App-footer">
         <a
           className="App-link"
-          href="https://github.com/anzhelaAbitova"
+          href="https://github.com/Anzhela139"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Anzhela Abitova
+          Anzhela Dev
         </a>
-        2021
-        <a href="https://rs.school/js/" target="_blank" rel="noopener noreferrer">
-          <img
-            src={
-              theme
-                ? 'https://rs.school/images/rs_school_js.svg'
-                : './assets/rs_school_js_light.svg'
-            }
-            alt=""
-          />
-        </a>
+        2024
       </footer>
     )
   }
