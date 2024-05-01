@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { get, set } from '../utils'
+import { get, set } from '../../utils'
 
 function Login(props) {
   const [player1, setPlayer1] = useState(get('player1_23096') || 'Player1')

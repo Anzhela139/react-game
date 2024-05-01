@@ -1,17 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
-import Rules from './Rules'
-import Login from './Login'
-import Keys from './Keys'
+import Rules from './modals/Rules'
+import Login from './modals/Login'
+import Keys from './modals/Keys'
 import { get, set } from '../utils'
 import { mdiImageOutline } from '@mdi/js';
-import imageIcon from '@iconify/icons-akar-icons/image'
 import Icon from '@mdi/react';
 import { mdiAccountCircleOutline } from '@mdi/js';
 
 
 import { mdiWeatherNight } from '@mdi/js';
-import { mdiExclamation } from '@mdi/js';
 
 const modalStyles = {
     display: 'flex',
@@ -72,13 +70,18 @@ const Menu = (props) => {
             <div className="wrapper-menu" style={modalStyles}>
                 <div className="screen">
                     <div className="row_top">
-                        <select name="board-size" id="board-size" onChange={props.handleSize}>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
+                        <div>
+                            Select board size
+                            <select name="board-size" id="board-size" onChange={props.handleSize}>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+
                         <div className="switch_toggle">
+                            Toggle crosses or icons
                             <input
                                 id="switch_toggle"
                                 type="checkbox"
@@ -96,40 +99,52 @@ const Menu = (props) => {
                                 {props.font === 'cross' ? (
                                     'X'
                                 ) : (
-                                    <Icon path={mdiImageOutline} size={1} />
+                                    <Icon path={mdiImageOutline} size={2} />
                                 )}
                             </label>
                         </div>
-                        <Icon
-                            path={mdiWeatherNight} 
-                            size={1}
-                            onClick={props.handleTheme}
-                        />
-                        <Icon path={mdiAccountCircleOutline} size={1} onClick={handleLogin} />
-                        <Icon
-                            path={mdiExclamation}
-                            size={1}
-                            onClick={props.handleSolution}
-                        />
+                        <div>
+                            Toggle mode
+                            <Icon
+                                path={mdiWeatherNight} 
+                                size={2}
+                                onClick={props.handleTheme}
+                            />
+                        </div>
+                        <div>
+                            Login
+                            <Icon path={mdiAccountCircleOutline} size={2} onClick={handleLogin} />
+
+                        </div>
+
                     </div>
                     <div className="row_left"></div>
                     <div className="row_right">
+                        <button className="btn btn-secondary" onClick={props.handleSolution}>
+                            Show solution 
+                        </button>
                         <button className="btn btn-secondary" onClick={handleRules}>
-                            Rules
+                            Show rules
                         </button>
                         <button className="btn btn-secondary" onClick={handleKeys}>
-                            Keys
+                            Show hotkeys
                         </button>
                     </div>
                     <div className="row_bottom">
                         <button className="btn btn-secondary" onClick={handleSave}>
-                            Save game
+                            Save current game
+                        </button>
+                        <button className="btn btn-secondary" onClick={handleSave}>
+                            Gameplay
                         </button>
                         <button className="btn btn-secondary" onClick={props.handleNewGame}>
-                            New game
+                            Settings
+                        </button>
+                        <button className="btn btn-secondary" onClick={props.handleNewGame}>
+                            Start new game
                         </button>
                         <button className="btn btn-secondary" onClick={handleResume}>
-                            Resume game
+                            Resume saved game
                         </button>
                     </div>
                 </div>

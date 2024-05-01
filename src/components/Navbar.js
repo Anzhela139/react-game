@@ -16,10 +16,7 @@ const Navbar = (props) => {
         <h2>
           {props.username1}:{props.player1}
         </h2>
-        <h2>
-          {props.username2}:{props.player2}
-        </h2>
-        <h2>Ties: {props.ties}</h2>
+        <h2>Victories: {props.ties}</h2>
         <h2>
           <Timer />
         </h2>

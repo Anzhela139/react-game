@@ -8,8 +8,13 @@ body {
   font-family: 'Montserrat', sans-serif;
   width: 100vw;
   max-width: 100vw;
-  overflow-x: hidden;
-  height: 100%;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
 }
 
 svg.icons {
@@ -79,6 +84,10 @@ svg.icons:hover {
   padding-bottom: 1rem;
   box-shadow: 2px 2px 7px 1px rgba(40,44,52,0.45);
   backdrop-filter: blur(5px);
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .light-theme .navbar,
@@ -106,6 +115,7 @@ svg.icons:hover {
 
 .App-link {
   color: #61dafb;
+  text-decoration: none;
 }
 
 @keyframes App-logo-spin {
@@ -398,7 +408,6 @@ input.switch_toggle-input:checked+label:after {
   padding: 0 1rem;
   border-radius: 5px;
   font-size: calc( (100vw - 480px)/(1280 - 480) * (24 - 16) + 16px);
-  text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
   background-color: transparent;
