@@ -17,7 +17,7 @@ function Base({ content, handleClose, handleback  }) {
     return (
         <div className="wrapper-menu" style={modalStyles}>
             <div className="screen">
-                <div>
+                <div className='modal-header'>
                     <Icon path={mdiArrowLeft} size={1} onClick={handleback} />
                     <h4 className='modal-title'>{ menu.value }</h4>
                     <Icon path={mdiWindowClose} size={1} onClick={handleClose} />

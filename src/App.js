@@ -5,7 +5,7 @@ import Menu from './components/Menu'
 import Footer from './components/Footer'
 import SvgBG from './components/SvgBG'
 import { get } from './utils'
-import './App.css'
+
 const players = {
   CPU: {
       SYM: "O",
