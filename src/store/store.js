@@ -8,7 +8,8 @@ import defeatSlice from './defeatSlice'
 import loginSlice from './loginSlice'
 import isCurrentlyPlayingSlice from './isCurrentlyPlaying'
 import isSavedGameSlice from './isSavedGame'
-import isAudioSlice from './isAudio'
+import audioSlice from './audio'
+import moveSlice from './moveSlice'
 
 export default configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export default configureStore({
     login: loginSlice,
     isCurrentlyPlaying: isCurrentlyPlayingSlice,
     isSavedGame: isSavedGameSlice,
-    isAudio: isAudioSlice
+    audio: audioSlice,
+    move: moveSlice
   }
 })

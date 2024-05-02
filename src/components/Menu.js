@@ -9,12 +9,12 @@ import Gameplay from './modals/Gameplay'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { changeMenu } from './../store/menuSlice.js'
 import { get, set } from '../utils'
 import { mdiImageOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import { mdiAccountCircleOutline } from '@mdi/js';
 import { mdiWindowClose } from '@mdi/js';
-
 
 import { mdiWeatherNight } from '@mdi/js';
 
@@ -22,7 +22,6 @@ const Menu = (props) => {
     const menu = useSelector(state => state.menu)
     const dispatch = useDispatch()
     console.log(menu)
-    const [showStartScreen, setStartScreen] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
     const [showRules, setShowRules] = useState(false)
     const [showKeys, setShowKeys] = useState(false)
@@ -71,28 +70,25 @@ const Menu = (props) => {
     const handleClose = (event) => {
         event.preventDefault()
         if (menu.value === 'StartScreen') {
-
+            dispatch(changeMenu(''));
         } else {
-
+            dispatch(changeMenu('StartScreen'));
         }
     }
 
-    if (props.showItself) {
-        return (
-            <Base handleClose={handleClose} content={
-                <>
-                    {menu.value === 'StartScreen' ? <StartScreen /> : null}
-                    {menu.value === 'Gameplay' ? <Gameplay /> : null}
-                    {menu.value === 'Login' ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
-                    {menu.value === 'Rules' ? <Rules handleRules={handleRules} /> : null}
-                    {menu.value === 'Keys' ? <Keys handleKeys={handleKeys} /> : null}
-                </>
-            }>
-            </Base>
-        )
-    } else {
-        return null
-    }
+
+    return (menu.value &&
+        <Base handleClose={handleClose} content={
+            <>
+                {menu.value === 'StartScreen' ? <StartScreen /> : null}
+                {menu.value === 'Gameplay' ? <Gameplay /> : null}
+                {menu.value === 'Login' ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
+                {menu.value === 'Rules' ? <Rules handleRules={handleRules} /> : null}
+                {menu.value === 'Keys' ? <Keys handleKeys={handleKeys} /> : null}
+            </>
+        }>
+        </Base>
+    )
 }
 
 export default Menu

@@ -11,6 +11,8 @@ import { mdiWindowClose } from '@mdi/js';
 import { mdiWeatherNight } from '@mdi/js';
 
 function StartScreen(props) {
+    const isCurrentlyPlaying = useSelector(state => state.isCurrentlyPlaying)
+    const isSavedGame = useSelector(state => state.isSavedGame)
     const [showStartScreen, setStartScreen] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
     const [showRules, setShowRules] = useState(false)
@@ -76,15 +78,22 @@ function StartScreen(props) {
             <button className="btn btn-secondary" onClick={props.handleNewGame}>
                 Settings
             </button>
-            <button className="btn btn-secondary" onClick={handleSave}>
-                Save current game
-            </button>
+            {
+                isCurrentlyPlaying.value &&
+                <button className="btn btn-secondary" onClick={handleSave}>
+                    Save current game
+                </button>
+            }
+
             <button className="btn btn-primary" onClick={props.handleNewGame}>
                 Start new game
             </button>
-            <button className="btn btn-secondary" onClick={handleResume}>
-                Resume saved game
-            </button>
+            {
+                isSavedGame.value &&
+                <button className="btn btn-secondary" onClick={handleResume}>
+                    Resume saved game
+                </button>
+            }
         </div>
     )
 }

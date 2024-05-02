@@ -246,7 +246,8 @@ function App() {
 
   return (
     <SizeContext.Provider value={size}>
-      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
+      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>-
+
         <div className="svg_background">
           <SvgBG />
         </div>
@@ -260,18 +261,9 @@ function App() {
             handleTheme={handleTheme}
             handleNewGame={handleNewGame}
             handleSolution={handleSolution}
-            username1={username1}
-            username2={username2}
-            size={size}
-            font={font}
           />
         ) : null}
         <Navbar
-          ties={ties}
-          username1={username1}
-          username2={'CPU'}
-          player1={player1}
-          player2={'CPU'}
           handleMenu={handleMenu}
         />
         <Game
