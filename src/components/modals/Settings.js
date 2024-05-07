@@ -64,33 +64,14 @@ function Settings() {
                 </md-outlined-select>
             </div>
             <div className='settings-card'>
-                <div className='settings-label'>Toggle crosses or icons</div>
-                <div className="switch_toggle">
-                    <input
-                        id="switch_toggle"
-                        type="checkbox"
-                        name="toggle"
-                        className="switch_toggle-input"
-                        onInput={handleSymbol}
-                    />
-                    <label
-                        id="switch_toggle-label"
-                        htmlFor="switch_toggle"
-                        style={
-                            symbol.value === 'cross' ? { paddingRight: '1rem' } : { paddingRight: '3.5rem' }
-                        }
-                    >
-                        {symbol.value === 'cross' ? (
-                            'X'
-                        ) : (
-                            <Icon path={mdiImageOutline} size={2} />
-                        )}
-                    </label>
-                </div>
+                <label>
+                    Toggle crosses or icons
+                    <md-switch onInput={handleSymbol} icons></md-switch>
+                </label>
             </div>
             <div className='settings-card'>
                 <div className='settings-label'>Toggle mode</div>
-                
+
                 <Icon
                     path={mdiWeatherNight}
                     size={2}

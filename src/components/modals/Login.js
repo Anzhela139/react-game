@@ -33,7 +33,7 @@ function Login(props) {
         </md-outlined-text-field>
         <label>
           Multi-person game mode
-          <md-switch onInput="hanleMultiPlayer"></md-switch>
+          <md-switch onInput={hanleMultiPlayer} icons></md-switch>
         </label>
         <md-outlined-text-field label="Name 2" placeholder="player1" onChange={handleChange}>
         </md-outlined-text-field>

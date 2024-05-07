@@ -5,7 +5,7 @@ import modeSlice from './modeSlice'
 import symbolSlice from './symbolSlice'
 import victorySlice from './victorySlice'
 import defeatSlice from './defeatSlice'
-import isLoginSlice from './isLoginSlice'
+import IsMultiPlayerSlice from './IsMultiPlayerSlice'
 import loginSlice from './loginSlice'
 import isCurrentlyPlayingSlice from './isCurrentlyPlaying'
 import isSavedGameSlice from './isSavedGame'
@@ -20,7 +20,7 @@ export default configureStore({
     symbol: symbolSlice,
     victory: victorySlice,
     defeat: defeatSlice,
-    isLogin: isLoginSlice,
+    IsMultiPlayer: IsMultiPlayerSlice,
     login: loginSlice,
     isCurrentlyPlaying: isCurrentlyPlayingSlice,
     isSavedGame: isSavedGameSlice,

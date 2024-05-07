@@ -12,17 +12,16 @@ const modalStyles = {
     width: '100%',
 }
 
-function Base({ content, handleClose, handleback  }) {
+function Base({ content, handleClose, handleBack  }) {
     const menu = useSelector(state => state.menu)
     return (
         <div className="wrapper-menu" style={modalStyles}>
             <div className="screen">
                 <div className='modal-header'>
-                    <Icon path={mdiArrowLeft} className='back' size={2} onClick={handleback} />
+                    {menu.value !== 'StartScreen' && <Icon path={mdiArrowLeft} className='back' size={2} onClick={handleBack} />}
                     <h4 className='modal-title'>{ menu.value }</h4>
                     <Icon path={mdiWindowClose} className='close' size={2} onClick={handleClose} />
                 </div>
-
                 { content  }
             </div>
             <div className="fade" onClick={handleClose}></div>

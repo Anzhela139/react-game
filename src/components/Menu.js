@@ -68,18 +68,25 @@ const Menu = (props) => {
         setShowLogin(!showLogin)
     }
 
-    const handleClose = (event) => {
+    const handleBack = (event) => {
         event.preventDefault()
-        if (menu.value === 'StartScreen') {
-            dispatch(changeMenu(''));
+        console.log(menu.value)
+        if (menu.value === 'Login') {
+            dispatch(changeMenu('Settings'));
         } else {
             dispatch(changeMenu('StartScreen'));
         }
     }
 
+    const handleClose = (event) => {
+        event.preventDefault()
+
+        dispatch(changeMenu(''));
+    }
+
 
     return (menu.value &&
-        <Base handleClose={handleClose} content={
+        <Base handleClose={handleClose} handleBack={handleBack} content={
             <>
                 {menu.value === 'StartScreen' && <StartScreen />}
                 {menu.value === 'Gameplay' && <Gameplay />}
