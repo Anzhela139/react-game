@@ -246,8 +246,7 @@ function App() {
 
   return (
     <SizeContext.Provider value={size}>
-      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>-
-
+      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
         <div className="svg_background">
           <SvgBG />
         </div>

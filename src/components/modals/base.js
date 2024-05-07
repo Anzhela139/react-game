@@ -18,9 +18,9 @@ function Base({ content, handleClose, handleback  }) {
         <div className="wrapper-menu" style={modalStyles}>
             <div className="screen">
                 <div className='modal-header'>
-                    <Icon path={mdiArrowLeft} size={1} onClick={handleback} />
+                    <Icon path={mdiArrowLeft} className='back' size={2} onClick={handleback} />
                     <h4 className='modal-title'>{ menu.value }</h4>
-                    <Icon path={mdiWindowClose} size={1} onClick={handleClose} />
+                    <Icon path={mdiWindowClose} className='close' size={2} onClick={handleClose} />
                 </div>
 
                 { content  }

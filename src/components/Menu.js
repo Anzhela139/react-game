@@ -6,6 +6,7 @@ import Keys from './modals/Keys'
 import Base from './modals/base'
 import StartScreen from './modals/startScreen'
 import Gameplay from './modals/Gameplay'
+import Settings from './modals/Settings.js'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -80,11 +81,12 @@ const Menu = (props) => {
     return (menu.value &&
         <Base handleClose={handleClose} content={
             <>
-                {menu.value === 'StartScreen' ? <StartScreen /> : null}
-                {menu.value === 'Gameplay' ? <Gameplay /> : null}
-                {menu.value === 'Login' ? <Login names={props.handleName} handleLogin={handleLogin} /> : null}
-                {menu.value === 'Rules' ? <Rules handleRules={handleRules} /> : null}
-                {menu.value === 'Keys' ? <Keys handleKeys={handleKeys} /> : null}
+                {menu.value === 'StartScreen' && <StartScreen />}
+                {menu.value === 'Gameplay' && <Gameplay />}
+                {menu.value === 'Settings' && <Settings />}
+                {menu.value === 'Login' && <Login names={props.handleName} handleLogin={handleLogin} />}
+                {menu.value === 'Rules' && <Rules handleRules={handleRules} />}
+                {menu.value === 'Keys' && <Keys handleKeys={handleKeys} />}
             </>
         }>
         </Base>

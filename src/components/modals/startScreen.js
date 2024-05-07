@@ -7,10 +7,12 @@ import Icon from '@mdi/react';
 import { mdiAccountCircleOutline } from '@mdi/js';
 import { mdiWindowClose } from '@mdi/js';
 
-
+import { useDispatch } from 'react-redux'
+import { changeMenu } from '../../store/menuSlice'
 import { mdiWeatherNight } from '@mdi/js';
 
 function StartScreen(props) {
+    const dispatch = useDispatch()
     const isCurrentlyPlaying = useSelector(state => state.isCurrentlyPlaying)
     const isSavedGame = useSelector(state => state.isSavedGame)
     const [showStartScreen, setStartScreen] = useState(false)
@@ -59,38 +61,33 @@ function StartScreen(props) {
         setShowLogin(!showLogin)
     }
 
-    const handleClose = (event) => {
-        event.preventDefault()
-        const modalsIsOpen = [showLogin, showRules, showKeys]
-        if (showStartScreen) {
-            setStartScreen(false)
-        } else {
-
-        }
-        setShowLogin(!showLogin)
+    const handleClose = (menuScreen) => {
+        // event.preventDefault()
+        console.log(menuScreen)
+        dispatch(changeMenu(menuScreen));
     }
 
     return (
         <div className="wrapper start-screen">
-            <button className="btn btn-secondary" onClick={handleSave}>
+            <button className="btn btn-secondary" type='button' onClick={() => handleClose('Gameplay')}>
                 Gameplay
             </button>
-            <button className="btn btn-secondary" onClick={props.handleNewGame}>
+            <button className="btn btn-secondary" type='button' onClick={() => handleClose('Settings')}>
                 Settings
             </button>
             {
                 isCurrentlyPlaying.value &&
-                <button className="btn btn-secondary" onClick={handleSave}>
+                <button className="btn btn-secondary" type='button' onClick={handleSave}>
                     Save current game
                 </button>
             }
 
-            <button className="btn btn-primary" onClick={props.handleNewGame}>
+            <button className="btn btn-primary" type='button' onClick={props.handleNewGame}>
                 Start new game
             </button>
             {
                 isSavedGame.value &&
-                <button className="btn btn-secondary" onClick={handleResume}>
+                <button className="btn btn-secondary" type='button' onClick={handleResume}>
                     Resume saved game
                 </button>
             }

@@ -1,53 +1,105 @@
 import React from 'react'
+import { mdiImageOutline } from '@mdi/js';
+import Icon from '@mdi/react';
+import { mdiAccountCircleOutline } from '@mdi/js';
+import { mdiWindowClose } from '@mdi/js';
 
-function Settings(props) {
+import { mdiWeatherNight } from '@mdi/js';
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { changeSize } from '../../store/sizeSlice.js'
+import { changeSymbol } from '../../store/symbolSlice.js'
+import { changeMode } from '../../store/modeSlice.js'
+import { changeMenu } from '../../store/menuSlice.js'
+
+function Settings() {
+    const symbol = useSelector(state => state.symbol)
+    const menu = useSelector(state => state.menu)
+    const dispatch = useDispatch()
+    const handleLogin = (event) => {
+        event.preventDefault()
+
+        dispatch(changeMenu('Login'));
+    }
+
+    const handleSize = (event) => {
+        event.preventDefault()
+        const size = parseInt(event.target?.value)
+        console.log(size)
+        dispatch(changeSize(size));
+    }
+
+    const handleSymbol = (event) => {
+        event.preventDefault()
+        const isCross = event.target?.checked
+
+        dispatch(changeSymbol(isCross ? 'cross' : 'img'));
+        console.log(isCross, symbol.value)
+    }
+
+    const handleMode = (event) => {
+        event.preventDefault()
+        const size = parseInt(event.target?.value)
+        console.log()
+        dispatch(changeMode(size));
+    }
+
+
     return (
-        <div className="wrapper">
-            <div>
-                Select board size
-                <select name="board-size" id="board-size" onChange={props.handleSize}>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
+        <div className="wrapper wrapper-settings">
+            <div className='settings-card'>
+                <md-outlined-select onInput={handleSize} label='Select board size'>
+                    <md-select-option selected value="3">
+                        <div slot="headline">3</div>
+                    </md-select-option>
+                    <md-select-option value="4">
+                        <div slot="headline">4</div>
+                    </md-select-option>
+                    <md-select-option value="5">
+                        <div slot="headline">5</div>
+                    </md-select-option>
+                    <md-select-option value="6">
+                        <div slot="headline">6</div>
+                    </md-select-option>
+                </md-outlined-select>
             </div>
-
-            <div className="switch_toggle">
-                Toggle crosses or icons
-                <input
-                    id="switch_toggle"
-                    type="checkbox"
-                    name="toggle"
-                    className="switch_toggle-input"
-                    onChange={props.handleToggle}
-                />
-                <label
-                    id="switch_toggle-label"
-                    htmlFor="switch_toggle"
-                    style={
-                        props.font === 'cross' ? { paddingRight: '1rem' } : { paddingRight: '3.5rem' }
-                    }
-                >
-                    {props.font === 'cross' ? (
-                        'X'
-                    ) : (
-                        <Icon path={mdiImageOutline} size={2} />
-                    )}
-                </label>
+            <div className='settings-card'>
+                <div className='settings-label'>Toggle crosses or icons</div>
+                <div className="switch_toggle">
+                    <input
+                        id="switch_toggle"
+                        type="checkbox"
+                        name="toggle"
+                        className="switch_toggle-input"
+                        onInput={handleSymbol}
+                    />
+                    <label
+                        id="switch_toggle-label"
+                        htmlFor="switch_toggle"
+                        style={
+                            symbol.value === 'cross' ? { paddingRight: '1rem' } : { paddingRight: '3.5rem' }
+                        }
+                    >
+                        {symbol.value === 'cross' ? (
+                            'X'
+                        ) : (
+                            <Icon path={mdiImageOutline} size={2} />
+                        )}
+                    </label>
+                </div>
             </div>
-            <div>
-                Toggle mode
+            <div className='settings-card'>
+                <div className='settings-label'>Toggle mode</div>
+                
                 <Icon
                     path={mdiWeatherNight}
                     size={2}
-                    onClick={props.handleTheme}
+                    onClick={handleMode}
                 />
             </div>
-            <div>
-                Login
-                <Icon path={mdiAccountCircleOutline} size={2} onClick={handleLogin} />
-
+            <div onClick={handleLogin} className='settings-card'>
+                <div className='settings-label'>Login</div>
+                <Icon path={mdiAccountCircleOutline} size={2} />
             </div>
         </div>
     )
