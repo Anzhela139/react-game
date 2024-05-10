@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Keys(props) {
+function Solution(props) {
   return (
     <div className="wrapper-">
       <h2>Hot keys</h2>
@@ -17,4 +17,4 @@ function Keys(props) {
   )
 }
 
-export default Keys
+export default Solution

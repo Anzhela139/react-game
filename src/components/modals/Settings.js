@@ -5,6 +5,7 @@ import { mdiAccountCircleOutline } from '@mdi/js';
 import { mdiWindowClose } from '@mdi/js';
 
 import { mdiWeatherNight } from '@mdi/js';
+import { mdiWeatherSunny } from '@mdi/js';
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { changeSize } from '../../store/sizeSlice.js'
@@ -14,7 +15,7 @@ import { changeMenu } from '../../store/menuSlice.js'
 
 function Settings() {
     const symbol = useSelector(state => state.symbol)
-    const menu = useSelector(state => state.menu)
+    const mode = useSelector(state => state.mode)
     const dispatch = useDispatch()
     const handleLogin = (event) => {
         event.preventDefault()
@@ -39,9 +40,8 @@ function Settings() {
 
     const handleMode = (event) => {
         event.preventDefault()
-        const size = parseInt(event.target?.value)
-        console.log()
-        dispatch(changeMode(size));
+
+        dispatch(changeMode());
     }
 
 
@@ -65,18 +65,14 @@ function Settings() {
             </div>
             <div className='settings-card'>
                 <label>
-                    Toggle crosses or icons
+                    <div className='settings-label'>Toggle crosses or icons</div>
                     <md-switch onInput={handleSymbol} icons></md-switch>
                 </label>
             </div>
             <div className='settings-card'>
                 <div className='settings-label'>Toggle mode</div>
-
-                <Icon
-                    path={mdiWeatherNight}
-                    size={2}
-                    onClick={handleMode}
-                />
+                {mode.value === 'light' && <Icon path={mdiWeatherNight} size={2} onClick={handleMode} />}
+                {mode.value === 'dark' && <Icon path={mdiWeatherSunny} size={2} onClick={handleMode} />}
             </div>
             <div onClick={handleLogin} className='settings-card'>
                 <div className='settings-label'>Login</div>

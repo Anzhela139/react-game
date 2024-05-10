@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { changeMode } from './store/modeSlice'
 import Navbar from './components/Navbar'
 import Game from './components/Game1'
 import Menu from './components/Menu'
@@ -6,14 +9,18 @@ import Footer from './components/Footer'
 import SvgBG from './components/SvgBG'
 import { get } from './utils'
 
+const getSym = (sym) => {
+
+}
+
 const players = {
   CPU: {
-      SYM: "O",
-      NAME: "CPU",
+    SYM: 0, // "O",
+    NAME: "CPU",
   },
   HUMAN: {
-      SYM: "X",
-      NAME: "You",
+    SYM: 1 || "X",
+    NAME: "You",
   },
 };
 
@@ -24,15 +31,22 @@ function sleep(milliseconds) {
     currentDate = Date.now();
   } while (currentDate - date < milliseconds);
 }
-const SizeContext = React.createContext({})
 
 function App() {
+  const mode = useSelector(state => state.mode)
+  const symbol = useSelector(state => state.symbol)
+  const menu = useSelector(state => state.menu)
+  const size = useSelector(state => state.size)
+  const dispatch = useDispatch()
+
+  const setEmptyBoard = () => {
+    const boardArray = [...Array(size.value)].map(() => Array(size.value).fill(""))
+    console.log(boardArray)
+    return boardArray
+  }
+
   // const [board, setBoard] = useState(Array(9).fill(""));
-  const [board, setBoard] = useState([
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
-  ]);
+  const [board, setBoard] = useState(setEmptyBoard());
   const [isCPUNext, setIsCPUNext] = useState(false);
   const [winner, setWinner] = useState(null);
 
@@ -44,18 +58,17 @@ function App() {
   const [player2, setPlayer2] = useState(0)
   const [showMenu, setShowMenu] = useState(true)
   const [isLight, setIsLight] = useState(true)
-  const [size, setSize] = useState(3)
+  // const [size, setSize] = useState(3)
   const [font, setFont] = useState('cross')
   const [solution, setSolution] = useState(false)
-
-  const handleName = (player1, player2) => {
-    setUsername1(player1)
-    setUsername2(player2)
-  }
 
   const handleMenu = () => {
     setShowMenu(!showMenu)
   }
+
+
+
+ 
 
   const handleToggle = () => {
     setFont(font === 'cross' ? 'img' : 'cross')
@@ -66,7 +79,7 @@ function App() {
   }
 
   const handleSize = (event) => {
-    setSize((event.target ? Number(event.target.value) : event))
+    // setSize((event.target ? Number(event.target.value) : event))
   }
 
   const handleTheme = () => {
@@ -74,11 +87,7 @@ function App() {
   }
 
   const handleNewGame = () => {
-    setBoard([
-      ["", "", ""],
-      ["", "", ""],
-      ["", "", ""],
-    ]);
+    setBoard( setEmptyBoard());
     setWinner(null);
     setIsCPUNext(false);
   }
@@ -210,12 +219,8 @@ function App() {
   }
 
   useEffect(() => {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsLight(false)
-    }
-
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-      setIsLight(!event.matches)
+      dispatch(changeMode());
     });
 
     document.addEventListener('keydown', (event) => {
@@ -245,81 +250,68 @@ function App() {
   }, [])
 
   return (
-    <SizeContext.Provider value={size}>
-      <div className={isLight ? 'App light-theme' : 'App dark-theme'}>
+    <>
+      <div className={mode.value === 'light' ? 'App light-theme' : 'App dark-theme'}>
         <div className="svg_background">
           <SvgBG />
         </div>
-        {showMenu ? (
-          <Menu
-            showItself={showMenu}
-            handleMenu={handleMenu}
-            handleName={handleName}
-            handleToggle={handleToggle}
-            handleSize={handleSize}
-            handleTheme={handleTheme}
-            handleNewGame={handleNewGame}
-            handleSolution={handleSolution}
-          />
-        ) : null}
-        <Navbar
-          handleMenu={handleMenu}
-        />
+        {menu.value && <Menu />}
+        <Navbar />
         <Game
-          size={size}
+          size={size.value}
           font={font}
           solution={solution}
           handleWinner={playFn}
           board={board}
           isNew={isNew}
         />
-        <Footer theme={isLight} />
+        <Footer theme={mode.value} />
       </div>
       <div>
-      <div>{!winner && displayTurn()}</div>
-      <div >
+        <div>{!winner && displayTurn()}</div>
         <div >
-          <span onClick={() => playFn(0, 0)} >
-            {board[0][0]}
-          </span>
-          <span onClick={() => playFn(0, 1)} >
-            {board[0][1]}
-          </span>
-          <span onClick={() => playFn(0, 2)} >
-            {board[0][2]}
-          </span>
+          <div >
+            <span onClick={() => playFn(0, 0)} >
+              {board[0][0]}
+            </span>
+            <span onClick={() => playFn(0, 1)} >
+              {board[0][1]}
+            </span>
+            <span onClick={() => playFn(0, 2)} >
+              {board[0][2]}
+            </span>
+          </div>
+          <div >
+            <span onClick={() => playFn(1, 0)} >
+              {board[1][0]}
+            </span>
+            <span onClick={() => playFn(1, 1)} >
+              {board[1][1]}
+            </span>
+            <span onClick={() => playFn(1, 2)}>
+              {board[1][2]}
+            </span>
+          </div>
+          <div >
+            <span onClick={() => playFn(2, 0)} >
+              {board[2][0]}
+            </span>
+            <span onClick={() => playFn(2, 1)} >
+              {board[2][1]}
+            </span>
+            <span onClick={() => playFn(2, 2)} >
+              {board[2][2]}
+            </span>
+          </div>
         </div>
-        <div >
-          <span onClick={() => playFn(1, 0)} >
-            {board[1][0]}
-          </span>
-          <span onClick={() => playFn(1, 1)} >
-            {board[1][1]}
-          </span>
-          <span onClick={() => playFn(1, 2)}>
-            {board[1][2]}
-          </span>
-        </div>
-        <div >
-          <span onClick={() => playFn(2, 0)} >
-            {board[2][0]}
-          </span>
-          <span onClick={() => playFn(2, 1)} >
-            {board[2][1]}
-          </span>
-          <span onClick={() => playFn(2, 2)} >
-            {board[2][2]}
-          </span>
-        </div>
+        {winner && <h2>{displayWinner()}</h2>}
+        {winner && (
+          <button onClick={playAgainFn}>
+            Play Again
+          </button>
+        )}
       </div>
-      {winner && <h2>{displayWinner()}</h2>}
-      {winner && (
-        <button  onClick={playAgainFn}>
-          Play Again
-        </button>
-      )}
-    </div>
-    </SizeContext.Provider>
+    </>
   )
 }
 

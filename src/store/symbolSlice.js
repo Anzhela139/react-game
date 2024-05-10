@@ -6,8 +6,8 @@ export const symbolSlice = createSlice({
     value: "cross"
   },
   reducers: {
-    changeSymbol: (state, action) => {
-      state.value = action.payload
+    changeSymbol: (state) => {
+      state.value = state.value === 'img' ? 'cross' : 'img'
     }
   }
 })

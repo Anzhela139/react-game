@@ -8,7 +8,7 @@ const Game = (props) => {
     const [stepNumber, setStepNumber] = useState(1)
     const [squares, setSquares] = useState(Array(props.size * props.size).fill(null))
     const [xIsNext, setXIsNext] = useState(true)
-
+    console.log('props.size', props.size)
     const handleNewGame = () => {
         setStepNumber(1)
         setSquares(Array(props.size * props.size).fill(null))

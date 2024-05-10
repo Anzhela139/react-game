@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 export const IsMultiPlayerSlice = createSlice({
   name: 'IsMultiPlayer',
   initialState: {
-    value: "Player1"
+    value: false
   },
   reducers: {
     changeIsMultiPlayer: (state, action) => {
-      state.value = action.payload
+      state.value = !state.value
       console.log(state.value, action.payload)
     }
   }

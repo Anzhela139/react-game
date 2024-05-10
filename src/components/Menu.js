@@ -7,6 +7,7 @@ import Base from './modals/base'
 import StartScreen from './modals/startScreen'
 import Gameplay from './modals/Gameplay'
 import Settings from './modals/Settings.js'
+import Solution from './modals/Solution.js'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -26,16 +27,6 @@ const Menu = (props) => {
     const [showLogin, setShowLogin] = useState(false)
     const [showRules, setShowRules] = useState(false)
     const [showKeys, setShowKeys] = useState(false)
-
-    const handleRules = (event) => {
-        event.preventDefault()
-        setShowRules(!showRules)
-    }
-
-    const handleKeys = (event) => {
-        event.preventDefault()
-        setShowKeys(!showKeys)
-    }
 
     const handleSave = () => {
         const { font, size, username1, username2 } = props
@@ -73,6 +64,8 @@ const Menu = (props) => {
         console.log(menu.value)
         if (menu.value === 'Login') {
             dispatch(changeMenu('Settings'));
+        } else if (menu.value === 'Rules' || menu.value === 'Keys' || menu.value === 'Solution') {
+            dispatch(changeMenu('Gameplay'));
         } else {
             dispatch(changeMenu('StartScreen'));
         }
@@ -92,8 +85,9 @@ const Menu = (props) => {
                 {menu.value === 'Gameplay' && <Gameplay />}
                 {menu.value === 'Settings' && <Settings />}
                 {menu.value === 'Login' && <Login names={props.handleName} handleLogin={handleLogin} />}
-                {menu.value === 'Rules' && <Rules handleRules={handleRules} />}
-                {menu.value === 'Keys' && <Keys handleKeys={handleKeys} />}
+                {menu.value === 'Rules' && <Rules />}
+                {menu.value === 'Keys' && <Keys />}
+                {menu.value === 'Solution' && <Solution />}
             </>
         }>
         </Base>

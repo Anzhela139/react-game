@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
 export const modeSlice = createSlice({
   name: 'mode',
   initialState: {
-    value: "light"
+    value: isDark ? 'dark' : 'light'
   },
   reducers: {
-    changeMode: (state, action) => {
-      state.value = action.payload
+    changeMode: (state) => {
+      state.value = state.value === 'light' ? 'dark' : 'light'
     }
   }
 })
