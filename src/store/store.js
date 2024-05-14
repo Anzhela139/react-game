@@ -11,6 +11,7 @@ import isCurrentlyPlayingSlice from './isCurrentlyPlaying'
 import isSavedGameSlice from './isSavedGame'
 import audioSlice from './audio'
 import moveSlice from './moveSlice'
+import boardSlice from './boardSlice'
 
 export default configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export default configureStore({
     isCurrentlyPlaying: isCurrentlyPlayingSlice,
     isSavedGame: isSavedGameSlice,
     audio: audioSlice,
-    move: moveSlice
+    move: moveSlice,
+    board: boardSlice
   }
 })

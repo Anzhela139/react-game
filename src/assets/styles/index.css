@@ -30,6 +30,10 @@ h1 {
   font-family: 'Hand-Board';
 }
 
+.app-title {
+  margin-right: 12px;
+}
+
 .modal-title {
   font-family: 'Hand-Board';
   grid-column: 2/3;
@@ -109,6 +113,10 @@ svg.icons:hover {
   left: 0;
 }
 
+.navbar .title {
+  margin: 8px 0;
+}
+
 .light-theme .navbar,
 .light-theme .App-footer,
 .light-theme .tile {
@@ -144,9 +152,34 @@ svg.icons:hover {
 
 .wrapper-settings {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   height: 100%;
+}
+
+.card-size {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.card-symbol {
+  grid-column: 3/4;
+  grid-row: 1/2;
+}
+
+.card-mode {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+.card-audio {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.card-login {
+  grid-column: 3/4;
+  grid-row: 2/3;
 }
 
 .settings-label {

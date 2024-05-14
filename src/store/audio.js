@@ -6,12 +6,12 @@ export const audioSlice = createSlice({
     value: ''
   },
   reducers: {
-    changeIsAudio: (state, action) => {
+    changeAudio: (state, action) => {
       state.value = action.payload
     }
   }
 })
 
-export const { changeIsAudio } = audioSlice.actions
+export const { changeAudio } = audioSlice.actions
 
 export default audioSlice.reducer

@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { get } from '../utils'
 
+const symbol = get('symbol') || "cross"
 export const symbolSlice = createSlice({
   name: 'symbol',
   initialState: {
-    value: "cross"
+    value: symbol
   },
   reducers: {
     changeSymbol: (state) => {

@@ -8,6 +8,7 @@ import StartScreen from './modals/startScreen'
 import Gameplay from './modals/Gameplay'
 import Settings from './modals/Settings.js'
 import Solution from './modals/Solution.js'
+import Audio from './modals/Audio.js'
 
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -88,6 +89,7 @@ const Menu = (props) => {
                 {menu.value === 'Rules' && <Rules />}
                 {menu.value === 'Keys' && <Keys />}
                 {menu.value === 'Solution' && <Solution />}
+                {menu.value === 'Audio' && <Audio />}
             </>
         }>
         </Base>

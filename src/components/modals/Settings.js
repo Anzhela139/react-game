@@ -1,11 +1,9 @@
 import React from 'react'
-import { mdiImageOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 import { mdiAccountCircleOutline } from '@mdi/js';
-import { mdiWindowClose } from '@mdi/js';
-
 import { mdiWeatherNight } from '@mdi/js';
 import { mdiWeatherSunny } from '@mdi/js';
+import { mdiVolumeMedium } from '@mdi/js';
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { changeSize } from '../../store/sizeSlice.js'
@@ -44,10 +42,15 @@ function Settings() {
         dispatch(changeMode());
     }
 
+    const handleAudio = (event) => {
+        event.preventDefault()
+
+        dispatch(changeMenu('Audio'));
+    }
 
     return (
         <div className="wrapper wrapper-settings">
-            <div className='settings-card'>
+            <div className='settings-card card-size'>
                 <md-outlined-select onInput={handleSize} label='Select board size'>
                     <md-select-option selected value="3">
                         <div slot="headline">3</div>
@@ -63,18 +66,24 @@ function Settings() {
                     </md-select-option>
                 </md-outlined-select>
             </div>
-            <div className='settings-card'>
+            <div className='settings-card card-symbol'>
                 <label>
                     <div className='settings-label'>Toggle crosses or icons</div>
                     <md-switch onInput={handleSymbol} icons></md-switch>
                 </label>
             </div>
-            <div className='settings-card'>
+            <div className='settings-card card-mode'>
                 <div className='settings-label'>Toggle mode</div>
                 {mode.value === 'light' && <Icon path={mdiWeatherNight} size={2} onClick={handleMode} />}
                 {mode.value === 'dark' && <Icon path={mdiWeatherSunny} size={2} onClick={handleMode} />}
             </div>
-            <div onClick={handleLogin} className='settings-card'>
+            <div onClick={handleAudio} className='settings-card card-audio'>
+                <label>
+                    <div className='settings-label'>Toggle audio</div>
+                    <Icon path={mdiVolumeMedium} size={2} />
+                </label>
+            </div>
+            <div onClick={handleLogin} className='settings-card card-login'>
                 <div className='settings-label'>Login</div>
                 <Icon path={mdiAccountCircleOutline} size={2} />
             </div>

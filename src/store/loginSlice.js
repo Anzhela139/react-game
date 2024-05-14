@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { get } from '../utils'
 
+const player = get('player1') || "Player1"
 export const loginSlice = createSlice({
   name: 'login',
   initialState: {
-    value: "Player1"
+    value: player
   },
   reducers: {
     changelogin: (state, action) => {

@@ -1,5 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
+import Icon from '@mdi/react';
+import { mdiBeeFlower } from '@mdi/js';
+import { mdiSnail } from '@mdi/js';
 
 function Square(props) {
   const [active, setActive] = useState(false)
@@ -31,19 +34,9 @@ function Square(props) {
       {props.font === 'cross' ? (
         props.value
       ) : props.value === 'X' ? (
-        <span
-          className="iconify"
-          data-inline="false"
-          data-icon="mdi:bee-flower"
-          style={{ fontSize: '56px' }}
-        ></span>
+        <span><Icon path={mdiBeeFlower} size={1} /></span>
       ) : props.value === 'O' ? (
-        <span
-          className="iconify"
-          data-inline="false"
-          data-icon="mdi:snail"
-          style={{ fontSize: '56px' }}
-        ></span>
+        <span><Icon path={mdiSnail} size={1} /></span>
       ) : null}
     </button>
   )
