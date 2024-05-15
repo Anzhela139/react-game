@@ -8,6 +8,7 @@ import { changeAudio } from '../../store/audio'
 import { mdiVolumeHigh } from '@mdi/js';
 import { mdiVolumeMedium } from '@mdi/js';
 import { mdiVolumeOff } from '@mdi/js';
+import AudioControls from '../audioControls';
 
 import BlindMemories from '../../assets/music/BlindMemories-Cheel.mp3'
 import CircleDance from '../../assets/music/CircleDance-SefChol.mp3'
@@ -33,7 +34,7 @@ import WalkingIInTheSky from '../../assets/music/WalkingIInTheSky-NicoStaf.mp3'
 import { mdiTuneVerticalVariant } from '@mdi/js';
 import { randomArr } from '../../utils'
 
-const Sound = () => {
+const Audio = () => {
   const audio = useSelector(state => state.audio)
   const audioDOM = useRef(null);
   console.log(BlindMemories)
@@ -146,7 +147,7 @@ const Sound = () => {
     event.preventDefault()
     const audioSrc = parseInt(event.target?.value)
     dispatch(changeAudio(audioSrc));
-    console.log(audioSrc)
+    console.log(audio)
     playAudio(audioSrc)
 }
 
@@ -159,13 +160,7 @@ const Sound = () => {
 
   return (
     <div className="wrapper-sound">
-      {audio.value && <>
-        <Icon path={mdiVolumeOff} size={2} onClick={stopMusic} />
-        <Icon path={mdiVolumeMedium} size={2} onClick={reload} />
-        <Icon path={mdiVolumeMedium} size={2} onClick={volumeUp} />
-        <Icon path={mdiVolumeLow} size={2} onClick={volumeDown} />
-        <Icon path={mdiTuneVerticalVariant} size={2} onClick={reload} />
-      </>}
+      {audio.value !== '' && <AudioControls />}
       <audio ref={audioDOM} src={srcAudio} onEnded={reload} />
       <md-outlined-select label='Select audio' onInput={handleAudio}>
         <md-select-option value='' selected>
@@ -181,4 +176,4 @@ const Sound = () => {
   )
 }
 
-export default Sound
+export default Audio

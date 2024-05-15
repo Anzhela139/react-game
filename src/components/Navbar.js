@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { changeMenu } from './../store/menuSlice.js'
 import Timer from './Timer'
-import Sound from './modals/Audio.js'
+import AudioControls from './audioControls';
 
 const Navbar = (props) => {
   const audio = useSelector(state => state.audio)
@@ -27,7 +27,6 @@ const Navbar = (props) => {
         <button className="btn btn-secondary" onClick={handleMenu}>
           Menu
         </button>
-        
       </div>
       {isCurrentlyPlaying.value && <div className="statistics">
         <h2>
@@ -38,6 +37,12 @@ const Navbar = (props) => {
         <h2>
           <Timer />
         </h2>
+      </div>}
+      {audio.value !== '' && <div className="audios">
+        <h4>
+          {audio.value}
+        </h4>
+        <AudioControls />
       </div>}
     </div>
   )

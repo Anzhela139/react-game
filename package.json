@@ -19,6 +19,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "eslint": "eslint ./src/*.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,6 +48,9 @@
     "@iconify/icons-mdi": "^1.2.48",
     "@iconify/react": "^4.1.1",
     "@mdi/js": "^7.4.47",
-    "@mdi/react": "^1.6.1"
+    "@mdi/react": "^1.6.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.2.0"
   }
 }
